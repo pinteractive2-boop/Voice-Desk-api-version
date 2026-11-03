@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="app">
+<template id="__bundler_thumbnail"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#7c5cf0"/><g transform="translate(30 30) scale(1.7)" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3zM19 10v2a7 7 0 0 1-14 0v-2M12 19v3"/></g></svg></template>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#7c5cf0">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg">
+<script>if('serviceWorker' in navigator&&location.protocol.startsWith('http'))navigator.serviceWorker.register('sw.js').catch(function(){})</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#eeeef1;font-family:'Plus Jakarta Sans',system-ui,sans-serif;color:#17171c}
+*{box-sizing:border-box}
+a{color:#7c5cf0;text-decoration:none}a:hover{color:#5b3fd0}
+button{font-family:inherit;cursor:pointer}
+.vd-in{font-family:inherit;font-size:13px;color:#17171c;background:#fff;border:1px solid #e4e4ea;border-radius:10px;padding:9px 11px;width:100%;outline:none;min-width:0}
+.vd-in:focus{border-color:#8b6cf6;box-shadow:0 0 0 3px #8b6cf622}
+.vd-card{background:#fff;border-radius:18px;box-shadow:0 1px 2px #0000000a,0 4px 14px #0000000a}
+.vd-nav:hover{background:#f3f2f7}
+.vd-row:hover{background:#faf9fd}
+.vd-bot{display:none}.vd-mcards{display:none}
+.vd-scroll{overflow-x:auto}
+@keyframes vdp{0%{box-shadow:0 0 0 0 #ef444466}100%{box-shadow:0 0 0 22px #ef444400}}
+@media(max-width:900px){.vd-tbl{display:none!important}.vd-mcards{display:block!important}.vd-side{display:none!important}.vd-bot{display:flex!important}.vd-main{padding:14px 12px 96px!important}.vd-shell{padding:0!important;border-radius:0!important;height:auto!important;min-height:100vh}.vd-pad{padding:0!important}.vd-g5{grid-template-columns:repeat(2,minmax(0,1fr))!important}.vd-2{grid-template-columns:minmax(0,1fr)!important}.vd-3{grid-template-columns:minmax(0,1fr)!important}.vd-hide{display:none!important}.vd-drawer{width:100%!important}}
+</style>
+</helmet>
+<div class="vd-pad" style="padding:16px;min-height:100vh">
+<div class="vd-shell" style="background:#fff;border-radius:28px;padding:16px;display:flex;gap:16px;height:calc(100vh - 32px);min-height:560px">
+  <aside class="vd-side" style="width:228px;flex:none;display:flex;flex-direction:column;padding:6px 4px;overflow-y:auto">
+    <div style="display:flex;align-items:center;gap:10px;padding:6px 8px 18px">
+      <div style="width:36px;height:36px;border-radius:11px;background:linear-gradient(135deg,#b49cff,#7c5cf0);display:grid;place-items:center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3zM19 10v2a7 7 0 0 1-14 0v-2M12 19v3"/></svg></div>
+      <div style="font-size:21px;font-weight:600;letter-spacing:-.03em">VoiceDesk</div>
+    </div>
+    <sc-for list="{{ navItems }}" as="n" hint-placeholder-count="10">
+      <div>
+        <div style="font-size:11px;color:#9a9aa5;padding:12px 10px 4px;display:{{ n.gdisp }}">{{ n.group }}</div>
+        <div class="vd-nav" onClick="{{ n.go }}" style="display:flex;align-items:center;gap:11px;padding:9px 10px;border-radius:11px;font-size:14px;cursor:pointer;background:{{ n.bg }};box-shadow:{{ n.sh }};font-weight:{{ n.fw }}">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#17171c" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="{{ n.d }}"/></svg>
+          <span style="flex:1">{{ n.label }}</span>
+          <span style="display:{{ n.bdisp }};background:#ef4444;color:#fff;font-size:10px;font-weight:600;border-radius:6px;padding:2px 6px">{{ n.badge }}</span>
+        </div>
+      </div>
+    </sc-for>
+    <div style="flex:1"></div>
+    <div class="vd-card" style="display:flex;align-items:center;gap:10px;padding:10px;margin-top:12px">
+      <div style="width:36px;height:36px;border-radius:50%;background:{{ me.av }};color:#fff;display:grid;place-items:center;font-size:13px;font-weight:600">{{ me.ini }}</div>
+      <div style="min-width:0"><div style="font-size:13px;font-weight:500">{{ me.disp }}</div><div style="font-size:11px;color:#9a9aa5;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ me.email }}</div></div>
+    </div>
+  </aside>
+  <main class="vd-main" style="flex:1;min-width:0;background:#f5f5f7;border-radius:22px;padding:22px;overflow-y:auto;position:relative">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px;flex-wrap:wrap">
+      <div style="font-size:22px;font-weight:500;letter-spacing:-.02em;flex:1;min-width:140px">{{ title }}</div>
+      <select class="vd-in" value="{{ meId }}" onChange="{{ setMe }}" style="width:auto;padding:8px 10px;font-size:12.5px"><sc-for list="{{ actors }}" as="a" hint-placeholder-count="4"><option value="{{ a.id }}">Acting as {{ a.label }}</option></sc-for></select>
+      <button onClick="{{ openNewTask }}" style="display:{{ newDisp }};border:0;background:#17171c;color:#fff;border-radius:11px;padding:10px 16px;font-size:13px;font-weight:500">+ New task</button>
+      <div onClick="{{ goAct }}" style="position:relative;width:38px;height:38px;border-radius:11px;background:#fff;display:grid;place-items:center;cursor:pointer;box-shadow:0 1px 3px #0000000f"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#17171c" stroke-width="1.8" stroke-linecap="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 0 1-3.46 0"/></svg><span style="display:{{ unreadDisp }};position:absolute;top:-4px;right:-4px;background:#ef4444;color:#fff;font-size:10px;border-radius:8px;padding:1px 5px">{{ unread }}</span></div>
+      <div class="vd-hide" style="display:flex">
+        <sc-for list="{{ avStack }}" as="a" hint-placeholder-count="4"><div style="width:34px;height:34px;border-radius:50%;background:{{ a.av }};color:#fff;display:grid;place-items:center;font-size:12px;font-weight:600;border:2px solid #fff;margin-left:-8px">{{ a.ini }}</div></sc-for>
+      </div>
+    </div>
+
+    <sc-if value="{{ isDash }}" hint-placeholder-val="{{ true }}">
+      <div>
+        <div class="vd-g5" style="display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px">
+          <sc-for list="{{ kpis }}" as="k" hint-placeholder-count="5">
+            <div class="vd-card" onClick="{{ k.go }}" style="padding:16px;cursor:pointer">
+              <div style="font-size:13px;color:#55555f">{{ k.label }}</div>
+              <div style="font-size:32px;font-weight:500;letter-spacing:-.03em;margin-top:10px;color:{{ k.fg }}">{{ k.val }}</div>
+              <div style="height:5px;border-radius:3px;background:#eee;margin-top:10px;display:{{ k.bdisp }}"><div style="height:5px;border-radius:3px;background:#84cc16;width:{{ k.w }}"></div></div>
+            </div>
+          </sc-for>
+        </div>
+        <div class="vd-2" style="display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:16px;margin-top:20px">
+          <div style="min-width:0">
+            <div style="font-size:15px;margin-bottom:10px">Project overview</div>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px">
+              <sc-for list="{{ projCards }}" as="p" hint-placeholder-count="3">
+                <div class="vd-card" onClick="{{ p.go }}" style="padding:16px;cursor:pointer">
+                  <div style="width:28px;height:20px;border-radius:5px;background:{{ p.col }}"></div>
+                  <div style="font-size:15px;font-weight:500;margin:12px 0 8px">{{ p.name }}</div>
+                  <div style="font-size:11.5px;color:#9a9aa5;display:flex;justify-content:space-between;flex-wrap:wrap;gap:2px 8px"><span>Target {{ p.target }}</span><span>{{ p.count }} tasks</span></div>
+                  <div style="display:flex;align-items:center;gap:8px;margin-top:12px"><div style="flex:1;height:6px;border-radius:3px;background:#eee"><div style="height:6px;border-radius:3px;background:{{ p.col }};width:{{ p.pct }}"></div></div><span style="font-size:12px">{{ p.pct }}</span></div>
+                </div>
+              </sc-for>
+            </div>
+            <div class="vd-card" style="padding:18px;margin-top:16px">
+              <div style="display:flex;align-items:center;margin-bottom:12px"><div style="font-size:17px;flex:1">Tasks overview</div><a onClick="{{ goAll }}" style="font-size:12px;cursor:pointer">View all</a></div>
+              <div class="vd-scroll"><div style="min-width:560px">
+              <sc-for list="{{ dashTasks }}" as="t" hint-placeholder-count="6">
+                <div class="vd-row" onClick="{{ t.open }}" style="display:grid;grid-template-columns:1fr 100px 90px 100px;gap:10px;align-items:center;padding:11px 8px;border-top:1px solid #f0f0f3;cursor:pointer;font-size:13px">
+                  <div style="min-width:0"><div style="font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ t.title }}</div><div style="font-size:11.5px;color:#9a9aa5">{{ t.assigneeName }} · {{ t.projName }}</div></div>
+                  <div style="color:{{ t.dueFg }}">{{ t.dueLabel }}</div>
+                  <div><span style="background:{{ t.prBg }};color:{{ t.prFg }};border-radius:20px;padding:3px 10px;font-size:11.5px">{{ t.priority }}</span></div>
+                  <div style="color:{{ t.stFg }};font-weight:500">{{ t.stLabel }}</div>
+                </div>
+              </sc-for>
+              </div></div>
+            </div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:16px;min-width:0">
+            <div class="vd-card" style="padding:18px">
+              <div style="font-size:17px">Tasks progress</div>
+              <div style="display:grid;place-items:center;margin:16px 0"><div style="width:150px;height:150px;border-radius:50%;background:{{ donut }};display:grid;place-items:center"><div style="width:100px;height:100px;border-radius:50%;background:#fff;display:grid;place-items:center;text-align:center"><div><div style="font-size:11px;color:#9a9aa5">Total task</div><div style="font-size:26px">{{ totalTasks }}</div></div></div></div></div>
+              <sc-for list="{{ legend }}" as="l" hint-placeholder-count="4"><div style="display:flex;align-items:center;gap:8px;font-size:13px;padding:4px 0"><span style="width:10px;height:10px;border-radius:3px;background:{{ l.col }}"></span><span style="flex:1;color:{{ l.col }}">{{ l.label }}</span><span>{{ l.pct }}</span></div></sc-for>
+            </div>
+            <div class="vd-card" style="padding:18px;background:linear-gradient(160deg,#f1ecff,#fff)">
+              <div style="font-size:15px;font-weight:500">Voice quick capture</div>
+              <div style="font-size:12.5px;color:#6b6b76;margin:6px 0 12px;line-height:1.5">Speak or type. English, Hindi and Hinglish.</div>
+              <button onClick="{{ goVoiceMic }}" style="border:0;background:#7c5cf0;color:#fff;border-radius:12px;padding:11px 16px;font-size:13px;font-weight:500;width:100%">Open Voice Desk</button>
+            </div>
+            <div class="vd-card" style="padding:18px">
+              <div style="font-size:17px;margin-bottom:10px">Latest activity</div>
+              <sc-for list="{{ actFeed }}" as="a" hint-placeholder-count="5"><div style="padding:8px 0;border-top:1px solid #f0f0f3;font-size:12.5px"><div><b style="font-weight:600">{{ a.by }}</b> {{ a.text }}</div><div style="font-size:11px;color:#9a9aa5">{{ a.when }}</div></div></sc-for>
+              <div style="display:{{ noActDisp }};font-size:12.5px;color:#9a9aa5">No activity yet.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </sc-if>
+    <sc-if value="{{ isTasks }}" hint-placeholder-val="{{ false }}">
+      <div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px">
+          <sc-for list="{{ tabs }}" as="t" hint-placeholder-count="5"><div onClick="{{ t.go }}" style="padding:7px 14px;border-radius:20px;font-size:12.5px;cursor:pointer;background:{{ t.bg }};color:{{ t.fg }};box-shadow:0 1px 2px #0000000d">{{ t.label }}</div></sc-for>
+        </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;align-items:center">
+          <input class="vd-in" placeholder="Search tasks" value="{{ q }}" onChange="{{ setQ }}" style="width:200px;flex:1;min-width:140px;max-width:260px">
+          <select class="vd-in" value="{{ pf }}" onChange="{{ setPf }}" style="width:auto"><option value="">All projects</option><sc-for list="{{ projOpts }}" as="o" hint-placeholder-count="3"><option value="{{ o.id }}">{{ o.name }}</option></sc-for></select>
+          <select class="vd-in" value="{{ mf }}" onChange="{{ setMf }}" style="width:auto"><option value="">Everyone</option><sc-for list="{{ memOpts }}" as="o" hint-placeholder-count="3"><option value="{{ o.id }}">{{ o.name }}</option></sc-for></select>
+          <select class="vd-in" value="{{ gb }}" onChange="{{ setGb }}" style="width:auto"><option value="">No grouping</option><option value="assignee">Group: assignee</option><option value="project">Group: project</option><option value="status">Group: status</option></select>
+          <div style="display:flex;background:#e9e9ee;border-radius:11px;padding:3px;margin-left:auto"><sc-for list="{{ tvs }}" as="v" hint-placeholder-count="3"><div onClick="{{ v.go }}" style="padding:6px 12px;border-radius:9px;font-size:12.5px;cursor:pointer;background:{{ v.bg }}">{{ v.label }}</div></sc-for></div>
+          <button onClick="{{ exportCsv }}" style="border:1px solid #e4e4ea;background:#fff;border-radius:10px;padding:9px 12px;font-size:12.5px">Export CSV</button>
+        </div>
+        <div style="display:{{ bulkDisp }};gap:8px;align-items:center;flex-wrap:wrap;background:#17171c;color:#fff;border-radius:12px;padding:8px 12px;margin-bottom:12px;font-size:12.5px">
+          <span>{{ selN }} selected</span>
+          <select class="vd-in" name="st" onChange="{{ bulkSet }}" style="width:auto;padding:6px"><option value="">Set status</option><option value="todo">To Do</option><option value="progress">In Progress</option><option value="blocked">Blocked</option><option value="done">Completed</option><option value="cancelled">Cancelled</option></select>
+          <select class="vd-in" name="as" onChange="{{ bulkSet }}" style="width:auto;padding:6px"><option value="">Assign to</option><sc-for list="{{ memOpts }}" as="o" hint-placeholder-count="3"><option value="{{ o.id }}">{{ o.name }}</option></sc-for></select>
+          <input class="vd-in" type="date" name="du" onChange="{{ bulkSet }}" style="width:auto;padding:5px">
+          <button onClick="{{ bulkArch }}" style="border:0;background:#3b3b45;color:#fff;border-radius:8px;padding:7px 10px;font-size:12px">Archive</button>
+          <button onClick="{{ bulkDel }}" style="border:0;background:#dc2626;color:#fff;border-radius:8px;padding:7px 10px;font-size:12px">Delete</button>
+        </div>
+        <sc-if value="{{ isList }}" hint-placeholder-val="{{ true }}">
+          <div class="vd-mcards"><sc-for list="{{ mcards }}" as="t" hint-placeholder-count="4"><div class="vd-card" onClick="{{ t.open }}" style="padding:14px;margin-bottom:10px"><div style="display:flex;gap:10px;align-items:flex-start"><div style="flex:1;min-width:0"><div style="font-weight:600;font-size:14px">{{ t.title }}</div><div style="font-size:12px;color:#9a9aa5;margin-top:2px">{{ t.projName }}</div></div><span style="background:{{ t.prBg }};color:{{ t.prFg }};border-radius:20px;padding:3px 10px;font-size:11.5px">{{ t.priority }}</span></div><div style="display:flex;align-items:center;gap:8px;margin:10px 0;font-size:12.5px"><span style="width:24px;height:24px;border-radius:50%;background:{{ t.aav }};color:#fff;font-size:10px;display:grid;place-items:center">{{ t.aini }}</span><span style="flex:1">{{ t.assigneeName }}</span><span style="color:{{ t.dueFg }}">{{ t.dueLabel }}</span></div><div style="display:flex;align-items:center;gap:8px"><div style="flex:1;height:6px;border-radius:3px;background:#eee"><div style="height:6px;border-radius:3px;background:{{ t.stFg }};width:{{ t.pgW }}"></div></div><span style="font-size:12px;color:{{ t.stFg }};font-weight:500">{{ t.stLabel }}</span><button onClick="{{ t.toggle }}" style="min-height:36px;border:1px solid #e4e4ea;background:#fff;border-radius:9px;padding:0 12px;font-size:12px">{{ t.doneLabel }}</button></div></div></sc-for></div>
+          <div class="vd-card vd-scroll vd-tbl" style="padding:6px 14px 10px"><div style="min-width:900px">
+            <div style="display:grid;grid-template-columns:28px minmax(180px,2fr) 1fr 1fr 110px 80px 110px 110px 80px;gap:10px;padding:12px 4px;font-size:12px;color:#9a9aa5"><span></span><span>Task</span><span>Project</span><span>Assignee</span><span>Due</span><span>Priority</span><span>Status</span><span>Progress</span><span></span></div>
+            <sc-for list="{{ groups }}" as="g" hint-placeholder-count="1"><div>
+              <div style="display:{{ g.hd }};font-size:12.5px;font-weight:600;padding:10px 4px 6px;background:#f7f6fb;border-radius:8px;margin-top:6px">{{ g.label }} <span style="color:#9a9aa5;font-weight:400">· {{ g.n }}</span></div>
+              <sc-for list="{{ g.rows }}" as="t" hint-placeholder-count="5">
+                <div class="vd-row" onClick="{{ t.open }}" style="display:grid;grid-template-columns:28px minmax(180px,2fr) 1fr 1fr 110px 80px 110px 110px 80px;gap:10px;align-items:center;padding:11px 4px;border-top:1px solid #f0f0f3;cursor:pointer;font-size:13px">
+                  <input type="checkbox" checked="{{ t.chk }}" onClick="{{ t.pick }}" onChange="{{ t.stop }}">
+                  <div style="min-width:0"><div style="font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ t.title }}</div><div style="font-size:11px;color:#9a9aa5">{{ t.subDone }}/{{ t.subTotal }} subtasks · by {{ t.byName }}</div></div>
+                  <div style="color:#55555f;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ t.projName }}</div>
+                  <div style="display:flex;align-items:center;gap:7px;min-width:0"><span style="flex:none;width:24px;height:24px;border-radius:50%;background:{{ t.aav }};color:#fff;font-size:10px;display:grid;place-items:center">{{ t.aini }}</span><span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ t.assigneeName }}</span></div>
+                  <div style="color:{{ t.dueFg }};font-size:12.5px">{{ t.dueLabel }}</div>
+                  <div><span style="background:{{ t.prBg }};color:{{ t.prFg }};border-radius:20px;padding:3px 9px;font-size:11.5px">{{ t.priority }}</span></div>
+                  <div style="color:{{ t.stFg }};font-weight:500;font-size:12.5px">{{ t.stLabel }}</div>
+                  <div style="display:flex;align-items:center;gap:6px"><div style="flex:1;height:5px;border-radius:3px;background:#eee"><div style="height:5px;border-radius:3px;background:{{ t.stFg }};width:{{ t.pgW }}"></div></div><span style="font-size:11px">{{ t.pg }}%</span></div>
+                  <button onClick="{{ t.toggle }}" style="border:1px solid #e4e4ea;background:#fff;border-radius:8px;padding:5px 8px;font-size:11.5px">{{ t.doneLabel }}</button>
+                </div>
+              </sc-for>
+            </div></sc-for>
+            <div style="display:{{ empty }};padding:40px;text-align:center;color:#9a9aa5;font-size:13px">No tasks match. Create one with “+ New task” or the microphone.</div>
+          </div></div>
+        </sc-if>
+        <sc-if value="{{ isMaster }}" hint-placeholder-val="{{ false }}">
+          <div class="vd-card vd-scroll" style="padding:6px 8px 10px"><div style="min-width:1700px;font-size:12.5px">
+            <div style="display:grid;grid-template-columns:78px 220px 130px 130px 110px 100px 120px 110px 110px 80px 90px 70px 110px 90px;gap:8px;padding:12px 4px;font-size:11.5px;color:#9a9aa5;position:sticky;top:0"><span>ID</span><span>Task</span><span>Project</span><span>Assignee</span><span>Assigned by</span><span>Priority</span><span>Status</span><span>Start</span><span>Due</span><span>Effort</span><span>Progress</span><span>Deps</span><span>Recurrence</span><span>Created</span></div>
+            <sc-for list="{{ mrows }}" as="t" hint-placeholder-count="6">
+              <div class="vd-row" style="display:grid;grid-template-columns:78px 220px 130px 130px 110px 100px 120px 110px 110px 80px 90px 70px 110px 90px;gap:8px;align-items:center;padding:6px 4px;border-top:1px solid #f0f0f3">
+                <a onClick="{{ t.open }}" style="cursor:pointer;font-size:11.5px">{{ t.code }}</a>
+                <input class="vd-in" name="title" value="{{ t.title }}" onChange="{{ t.ed }}" style="padding:6px 8px">
+                <select class="vd-in" name="projectId" value="{{ t.projectId }}" onChange="{{ t.ed }}" style="padding:6px"><option value="">None</option><sc-for list="{{ t.po }}" as="o" hint-placeholder-count="3"><option value="{{ o.id }}">{{ o.name }}</option></sc-for></select>
+                <select class="vd-in" name="assignee" value="{{ t.assignee }}" onChange="{{ t.ed }}" style="padding:6px"><option value="">Unassigned</option><sc-for list="{{ t.mo }}" as="o" hint-placeholder-count="3"><option value="{{ o.id }}">{{ o.name }}</option></sc-for></select>
+                <span style="color:#55555f">{{ t.byName }}</span>
+                <select class="vd-in" name="priority" value="{{ t.priority }}" onChange="{{ t.ed }}" style="padding:6px"><option>Urgent</option><option>High</option><option>Medium</option><option>Low</option></select>
+                <select class="vd-in" name="status" value="{{ t.status }}" onChange="{{ t.ed }}" style="padding:6px"><option value="draft">Draft</option><option value="todo">To Do</option><option value="progress">In Progress</option><option value="blocked">Blocked</option><option value="done">Completed</option><option value="cancelled">Cancelled</option></select>
+                <input class="vd-in" type="date" name="start" value="{{ t.start }}" onChange="{{ t.ed }}" style="padding:6px">
+                <input class="vd-in" type="date" name="due" value="{{ t.due }}" onChange="{{ t.ed }}" style="padding:6px">
+                <input class="vd-in" type="number" min="0" step="0.5" name="effort" value="{{ t.effort }}" placeholder="hours" onChange="{{ t.ed }}" style="padding:6px 8px">
+                <span>{{ t.pg }}%</span><span>{{ t.depN }}</span><span style="color:#6b6b76">{{ t.rc }}</span><span style="color:#9a9aa5">{{ t.cr }}</span>
+              </div>
+            </sc-for>
+            <div style="display:{{ empty }};padding:40px;text-align:center;color:#9a9aa5">No tasks match the current filters.</div>
+          </div></div>
+        </sc-if>
+        <sc-if value="{{ isBoard }}" hint-placeholder-val="{{ false }}">
+          <div class="vd-scroll" style="display:grid;grid-template-columns:repeat(4,minmax(240px,1fr));gap:12px">
+            <sc-for list="{{ board }}" as="c" hint-placeholder-count="4">
+              <div onDragOver="{{ c.over }}" onDrop="{{ c.drop }}" style="background:#ececf0;border-radius:16px;padding:10px;min-height:280px">
+                <div style="display:flex;align-items:center;gap:8px;padding:4px 6px 10px;font-size:13px;font-weight:600"><span style="width:9px;height:9px;border-radius:3px;background:{{ c.col }}"></span>{{ c.label }}<span style="color:#9a9aa5;font-weight:400">{{ c.n }}</span></div>
+                <sc-for list="{{ c.cards }}" as="t" hint-placeholder-count="2">
+                  <div draggable="true" onDragStart="{{ t.dragS }}" onClick="{{ t.open }}" class="vd-card" style="padding:12px;margin-bottom:8px;cursor:grab;font-size:13px">
+                    <div style="font-weight:500;margin-bottom:6px">{{ t.title }}</div>
+                    <div style="font-size:11.5px;color:#9a9aa5;margin-bottom:8px">{{ t.projName }}</div>
+                    <div style="display:flex;align-items:center;gap:8px;font-size:11.5px"><span style="background:{{ t.prBg }};color:{{ t.prFg }};border-radius:20px;padding:2px 8px">{{ t.priority }}</span><span style="color:{{ t.dueFg }}">{{ t.dueLabel }}</span><span style="margin-left:auto;width:22px;height:22px;border-radius:50%;background:{{ t.aav }};color:#fff;font-size:9.5px;display:grid;place-items:center">{{ t.aini }}</span></div>
+                  </div>
+                </sc-for>
+              </div>
+            </sc-for>
+          </div>
+        </sc-if>
+        <sc-if value="{{ isCal }}" hint-placeholder-val="{{ false }}">
+          <div class="vd-card" style="padding:16px"><div class="vd-scroll"><div style="min-width:640px">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px"><button onClick="{{ prevM }}" style="border:1px solid #e4e4ea;background:#fff;border-radius:8px;width:32px;height:32px">‹</button><div style="font-size:15px;font-weight:500;min-width:150px;text-align:center">{{ monthLabel }}</div><button onClick="{{ nextM }}" style="border:1px solid #e4e4ea;background:#fff;border-radius:8px;width:32px;height:32px">›</button></div>
+            <div style="display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px;font-size:11px;color:#9a9aa5;margin-bottom:4px"><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span></div>
+            <div style="display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px">
+              <sc-for list="{{ cells }}" as="c" hint-placeholder-count="35"><div style="min-height:88px;background:{{ c.bg }};border:1px solid #f0f0f3;border-radius:10px;padding:5px;min-width:0"><div style="font-size:11.5px;color:#6b6b76">{{ c.day }}</div><sc-for list="{{ c.tasks }}" as="t" hint-placeholder-count="0"><div onClick="{{ t.open }}" style="margin-top:3px;background:{{ t.prBg }};color:{{ t.prFg }};border-radius:6px;padding:2px 5px;font-size:10.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;cursor:pointer">{{ t.title }}</div></sc-for></div></sc-for>
+            </div>
+          </div></div></div>
+        </sc-if>
+      </div>
+    </sc-if>
+    <sc-if value="{{ isVoice }}" hint-placeholder-val="{{ false }}">
+      <div class="vd-2" style="display:grid;grid-template-columns:minmax(0,420px) minmax(0,1fr);gap:16px;align-items:start">
+        <div class="vd-card" style="padding:22px">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:12px">
+            <div onClick="{{ micClick }}" role="button" aria-label="{{ micLabel }}" style="width:92px;height:92px;border-radius:50%;background:{{ micBg }};display:grid;place-items:center;cursor:pointer;animation:{{ micAnim }}"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3zM19 10v2a7 7 0 0 1-14 0v-2M12 19v3"/></svg></div>
+            <div style="font-size:14px;font-weight:500">{{ micLabel }}</div>
+            <sc-if value="{{ isListening }}" hint-placeholder-val="{{ false }}"><div style="display:flex;flex-direction:column;align-items:center;gap:8px"><div style="display:flex;align-items:center;gap:3px;height:40px"><sc-for list="{{ bars }}" as="b" hint-placeholder-count="0"><div style="width:4px;border-radius:2px;background:#7c5cf0;height:{{ b.h }}"></div></sc-for></div><div style="font-size:13px;color:#55555f">{{ vtime }} · <a onClick="{{ cancelRec }}" style="cursor:pointer;color:#dc2626">Cancel</a></div></div></sc-if>
+            <div style="font-size:11.5px;color:#9a9aa5">{{ permTxt }}</div>
+            <div style="display:{{ vmsgDisp }};background:#fef2f2;color:#b91c1c;border-radius:10px;padding:9px 12px;font-size:12.5px;line-height:1.5">{{ vmsg }}</div>
+          </div>
+          <div style="display:flex;gap:8px;align-items:center;margin:18px 0 6px"><div style="font-size:12px;color:#6b6b76;flex:1">Transcript (editable)</div><select class="vd-in" value="{{ lang }}" onChange="{{ setLang }}" style="width:auto;padding:5px 8px;font-size:12px"><option value="en-IN">English (India)</option><option value="hi-IN">Hindi / Hinglish</option><option value="en-US">English (US)</option></select></div>
+          <textarea class="vd-in" rows="4" value="{{ vt }}" onChange="{{ setVt }}" placeholder="Speak, or type your instruction here" style="resize:vertical;line-height:1.5"></textarea>
+          <button onClick="{{ interpretClick }}" style="margin-top:10px;width:100%;border:0;background:#17171c;color:#fff;border-radius:11px;padding:11px;font-size:13px;font-weight:500">Extract tasks</button>
+          <div style="font-size:12px;color:#6b6b76;margin:16px 0 8px">Try an example</div>
+          <div style="display:flex;flex-direction:column;gap:6px"><sc-for list="{{ samples }}" as="x" hint-placeholder-count="4"><div onClick="{{ x.go }}" class="vd-nav" style="font-size:12.5px;padding:8px 10px;border:1px solid #ececf0;border-radius:10px;cursor:pointer;line-height:1.4">{{ x.t }}</div></sc-for></div>
+        </div>
+        <div style="min-width:0">
+          <div style="display:{{ noCards }};background:#fff;border:1.5px dashed #d8d8e0;border-radius:18px;padding:40px 24px;text-align:center;color:#9a9aa5;font-size:13px;line-height:1.6">Extracted tasks appear here for review. Nothing is saved until you confirm.</div>
+          <sc-if value="{{ hasCards }}" hint-placeholder-val="{{ false }}"><div>
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px"><div style="font-size:15px;font-weight:500;flex:1">Review</div><a onClick="{{ clearCards }}" style="font-size:12.5px;cursor:pointer">Clear</a></div>
+            <sc-for list="{{ vcards }}" as="k" hint-placeholder-count="2">
+              <div class="vd-card" style="padding:16px;margin-bottom:10px">
+                <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px"><span style="background:#f1ecff;color:#6d4ce0;border-radius:20px;padding:3px 10px;font-size:11.5px;font-weight:500">{{ k.lab }}</span><span style="flex:1"></span><a onClick="{{ k.full }}" style="display:{{ k.tdisp }};cursor:pointer;font-size:12px;margin-right:10px">Use full sentence as title</a><a onClick="{{ k.drop }}" style="cursor:pointer;font-size:12px;color:#9a9aa5">Remove</a></div>
+                <div style="font-size:12px;color:#9a9aa5;font-style:italic;margin-bottom:10px">“{{ k.src }}”</div>
+                <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;font-size:11.5px;color:#6b6b76">
+                  <sc-if value="{{ k.showTitle }}" hint-placeholder-val="{{ true }}"><label style="grid-column:1/-1">Title<input class="vd-in" name="title" value="{{ k.title }}" onChange="{{ k.set }}"></label></sc-if>
+                  <sc-if value="{{ k.showRef }}" hint-placeholder-val="{{ false }}"><label style="grid-column:1/-1">Existing task<select class="vd-in" name="ref" value="{{ k.ref }}" onChange="{{ k.set }}"><option value="">Select task</option><sc-for list="{{ k.refOpts }}" as="o" hint-placeholder-count="3"><option value="{{ o.id }}">{{ o.name }}</option></sc-for></select></label></sc-if>
+                  <sc-if value="{{ k.showWho }}" hint-placeholder-val="{{ true }}"><label>Assignee<select class="vd-in" name="assignee" value="{{ k.assignee }}" onChange="{{ k.set }}"><option value="">Unassigned (draft)</option><sc-for list="{{ k.mo }}" as="o" hint-placeholder-count="3"><option value="{{ o.id }}">{{ o.name }}</option></sc-for></select></label></sc-if>
+                  <sc-if value="{{ k.showWho }}" hint-placeholder-val="{{ true }}"><label>Reviewer (optional)<select class="vd-in" name="reviewer" value="{{ k.reviewer }}" onChange="{{ k.set }}"><option value="">No reviewer</option><sc-for list="{{ k.mo }}" as="o" hint-placeholder-count="3"><option value="{{ o.id }}">{{ o.name }}</option></sc-for></select></label></sc-if>
+                  <sc-if value="{{ k.showWhen }}" hint-placeholder-val="{{ true }}"><label>Due date<input class="vd-in" type="date" name="date" value="{{ k.date }}" onChange="{{ k.set }}"></label></sc-if>
+                  <sc-if value="{{ k.showWhen }}" hint-placeholder-val="{{ true }}"><label>Time<input class="vd-in" type="time" name="time" value="{{ k.time }}" onChange="{{ k.set }}"></label></sc-if>
+                  <sc-if value="{{ k.showPrio }}" hint-placeholder-val="{{ true }}"><label>Priority<select class="vd-in" name="prio" value="{{ k.prio }}" onChange="{{ k.set }}"><option value="">Not stated (Medium)</option><option>Urgent</option><option>High</option><option>Medium</option><option>Low</option></select></label></sc-if>
+                  <sc-if value="{{ k.isNew }}" hint-placeholder-val="{{ true }}"><label>Project<select class="vd-in" name="proj" value="{{ k.proj }}" onChange="{{ k.set }}"><option value="">None</option><sc-for list="{{ k.po }}" as="o" hint-placeholder-count="3"><option value="{{ o.id }}">{{ o.name }}</option></sc-for></select></label></sc-if>
+                </div>
+                <div style="display:{{ k.pickDisp }};gap:6px;flex-wrap:wrap;align-items:center;margin-top:10px;font-size:12.5px"><b>Which {{ k.askName }}?</b><sc-for list="{{ k.pick }}" as="p" hint-placeholder-count="2"><button onClick="{{ p.go }}" style="border:1px solid #7c5cf0;color:#6d4ce0;background:#fff;border-radius:20px;padding:5px 12px;font-size:12px">{{ p.label }}</button></sc-for></div>
+                <div style="display:{{ k.unspec }};font-size:12px;color:#9a9aa5;margin-top:8px">No assignee stated. Saves as an unassigned draft.</div>
+                <div style="display:{{ k.softDisp }};font-size:12px;color:#92400e;background:#fffbeb;border-radius:8px;padding:7px 10px;margin-top:8px;line-height:1.5">{{ k.softTxt }}</div>
+                <sc-if value="{{ k.showDel }}" hint-placeholder-val="{{ false }}"><label style="display:flex;gap:8px;align-items:center;font-size:12.5px;color:#b91c1c;margin-top:10px"><input type="checkbox" checked="{{ k.confirm }}" onChange="{{ k.tog }}">Yes, permanently delete this task</label></sc-if>
+                <div style="display:{{ k.resDisp }};margin-top:6px"><sc-for list="{{ k.results }}" as="r" hint-placeholder-count="0"><div style="font-size:13px;padding:6px 0;border-top:1px solid #f0f0f3">{{ r }}</div></sc-for><div style="display:{{ k.noRes }};font-size:13px;color:#9a9aa5">Nothing matches.</div></div>
+                <div style="display:{{ k.whyDisp }};font-size:12px;color:#dc2626;margin-top:8px;font-weight:500">Needs attention: {{ k.why }}</div>
+              </div>
+            </sc-for>
+            <button onClick="{{ commit }}" style="display:{{ commitDisp }};width:100%;border:0;background:#7c5cf0;color:#fff;border-radius:12px;padding:13px;font-size:14px;font-weight:500;opacity:{{ commitOp }}">{{ commitLabel }}</button>
+          </div></sc-if>
+          <div style="display:{{ vhistDisp }};margin-top:20px"><div style="font-size:15px;font-weight:500;margin-bottom:8px">Voice history</div>
+            <sc-for list="{{ vhist }}" as="h" hint-placeholder-count="3"><div class="vd-card" onClick="{{ h.reuse }}" style="padding:10px 14px;margin-bottom:6px;cursor:pointer;font-size:12.5px"><div>{{ h.text }}</div><div style="color:#9a9aa5;font-size:11px;margin-top:2px">{{ h.when }} · {{ h.n }} item(s) · tap to reuse</div></div></sc-for></div>
+        </div>
+      </div>
+    </sc-if>
+    <sc-if value="{{ isTeam }}" hint-placeholder-val="{{ false }}"><div>
+      <div style="display:flex;margin-bottom:14px"><div style="flex:1;font-size:13px;color:#6b6b76">Spoken names (aliases) are matched against active members only.</div><button onClick="{{ addMember }}" style="display:{{ addMemDisp }};border:0;background:#7c5cf0;color:#fff;border-radius:11px;padding:10px 16px;font-size:13px">+ Add member</button></div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:12px">
+        <sc-for list="{{ team }}" as="m" hint-placeholder-count="6">
+          <div class="vd-card" style="padding:16px;opacity:{{ m.op }}">
+            <div style="display:flex;gap:12px;align-items:center"><div style="width:44px;height:44px;border-radius:50%;background:{{ m.av }};color:#fff;display:grid;place-items:center;font-weight:600">{{ m.ini }}</div><div style="flex:1;min-width:0"><div style="font-weight:600;font-size:14.5px">{{ m.name }}</div><div style="font-size:12px;color:#9a9aa5;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ m.desig }} · {{ m.dept }}</div></div><span style="font-size:11px;color:{{ m.sd }}">{{ m.sl }}</span></div>
+            <div style="font-size:11.5px;color:#6b6b76;margin-top:10px">Voice: {{ m.aliases }}</div>
+            <div style="display:{{ m.dupDisp }};font-size:11.5px;color:#92400e;background:#fffbeb;border-radius:8px;padding:5px 8px;margin-top:6px">Shared alias “{{ m.dupes }}”. Voice will ask which person.</div>
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:12px 0;text-align:center;font-size:11px;color:#9a9aa5"><div><div style="font-size:18px;color:#17171c">{{ m.st.active }}</div>Open</div><div><div style="font-size:18px;color:#dc2626">{{ m.st.over }}</div>Overdue</div><div><div style="font-size:18px;color:#16a34a">{{ m.st.done }}</div>Done</div></div>
+            <div style="display:flex;align-items:center;gap:8px"><div style="flex:1;height:6px;border-radius:3px;background:#eee"><div style="height:6px;border-radius:3px;background:#84cc16;width:{{ m.pctW }}"></div></div><span style="font-size:12px">{{ m.st.pct }}%</span></div>
+            <div style="display:flex;gap:8px;margin-top:12px"><button onClick="{{ m.open }}" style="flex:1;border:1px solid #e4e4ea;background:#fff;border-radius:9px;padding:7px;font-size:12px">Edit profile</button><button onClick="{{ m.tasks }}" style="flex:1;border:1px solid #e4e4ea;background:#fff;border-radius:9px;padding:7px;font-size:12px">View tasks</button></div>
+          </div>
+        </sc-for>
+      </div>
+    </div></sc-if>
+    <sc-if value="{{ isProj }}" hint-placeholder-val="{{ false }}"><div>
+      <div style="display:flex;margin-bottom:14px"><div style="flex:1;font-size:13px;color:#6b6b76">Progress is task-count based: completed / active tasks.</div><button onClick="{{ addProj }}" style="display:{{ addProjDisp }};border:0;background:#7c5cf0;color:#fff;border-radius:11px;padding:10px 16px;font-size:13px">+ New project</button></div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:12px">
+        <sc-for list="{{ projFull }}" as="p" hint-placeholder-count="3">
+          <div class="vd-card" style="padding:18px">
+            <div style="display:flex;align-items:center;gap:10px"><div style="width:30px;height:22px;border-radius:6px;background:{{ p.col }}"></div><div style="flex:1;font-size:16px;font-weight:600">{{ p.name }}</div><span style="font-size:11px;color:#6b6b76">{{ p.status }}</span></div>
+            <div style="font-size:12.5px;color:#6b6b76;margin:8px 0 12px;min-height:18px">{{ p.desc }}</div>
+            <div style="font-size:12px;color:#9a9aa5;display:flex;justify-content:space-between"><span>Owner {{ p.owner }}</span><span>Target {{ p.target }}</span></div>
+            <div style="display:flex;align-items:center;gap:8px;margin:10px 0"><div style="flex:1;height:7px;border-radius:4px;background:#eee"><div style="height:7px;border-radius:4px;background:{{ p.col }};width:{{ p.pctW }}"></div></div><span style="font-size:13px;font-weight:500">{{ p.pct }}</span></div>
+            <div style="font-size:11.5px;color:#9a9aa5">{{ p.d }} of {{ p.count }} tasks completed (task-count method)</div><div style="font-size:11.5px;color:#6b6b76;margin-top:4px">{{ p.nextMs }}</div>
+            <div style="display:flex;gap:8px;margin-top:12px"><button onClick="{{ p.open }}" style="flex:1;border:1px solid #e4e4ea;background:#fff;border-radius:9px;padding:7px;font-size:12px">Edit</button><button onClick="{{ p.view }}" style="flex:1;border:1px solid #e4e4ea;background:#fff;border-radius:9px;padding:7px;font-size:12px">View tasks</button></div>
+          </div>
+        </sc-for>
+      </div>
+    </div></sc-if>
+    <sc-if value="{{ isAct }}" hint-placeholder-val="{{ false }}"><div class="vd-3" style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;align-items:start">
+      <div class="vd-card" style="padding:16px;grid-column:1/-1;display:flex;gap:14px;flex-wrap:wrap;align-items:center"><div style="flex:1;min-width:240px;font-size:13px;line-height:1.6"><b>{{ dayTxt }}</b><br><span style="color:#55555f">{{ wkTxt }}</span></div><button onClick="{{ sendDay }}" style="border:1px solid #e4e4ea;background:#fff;border-radius:10px;padding:8px 12px;font-size:12px">Send daily to me</button><button onClick="{{ sendWk }}" style="border:1px solid #e4e4ea;background:#fff;border-radius:10px;padding:8px 12px;font-size:12px">Send weekly to me</button></div>
+      <div class="vd-card" style="padding:16px"><div style="display:flex;margin-bottom:8px"><div style="flex:1;font-size:15px;font-weight:500">Notifications</div><a onClick="{{ markAll }}" style="font-size:12px;cursor:pointer">Mark all read</a></div>
+        <sc-for list="{{ myN }}" as="n" hint-placeholder-count="3"><div onClick="{{ n.mark }}" style="padding:9px 8px;border-top:1px solid #f0f0f3;font-size:12.5px;background:{{ n.bg }};border-radius:8px;cursor:pointer"><div>{{ n.text }}</div><div style="font-size:11px;color:#9a9aa5">{{ n.when }} · {{ n.kind }} · {{ n.del }}</div></div></sc-for>
+        <div style="display:{{ noN }};font-size:12.5px;color:#9a9aa5">No notifications yet. Assignments to you appear here.</div></div>
+      <div class="vd-card" style="padding:16px"><div style="font-size:15px;font-weight:500;margin-bottom:8px">Due soon and overdue</div>
+        <sc-for list="{{ rem }}" as="t" hint-placeholder-count="3"><div style="padding:9px 0;border-top:1px solid #f0f0f3;font-size:12.5px;display:flex;gap:8px;align-items:center"><div style="flex:1;min-width:0"><div style="font-weight:500">{{ t.title }}</div><div style="color:{{ t.dueFg }};font-size:11.5px">{{ t.dueLabel }} · {{ t.assigneeName }}</div></div><button onClick="{{ t.send }}" style="border:1px solid #e4e4ea;background:#fff;border-radius:8px;padding:5px 9px;font-size:11.5px">Remind</button></div></sc-for>
+        <div style="display:{{ noRem }};font-size:12.5px;color:#9a9aa5">Nothing due in the next 2 days.</div></div>
+      <div class="vd-card" style="padding:16px"><div style="font-size:15px;font-weight:500;margin-bottom:8px">Task change history</div>
+        <sc-for list="{{ log }}" as="a" hint-placeholder-count="5"><div style="padding:8px 0;border-top:1px solid #f0f0f3;font-size:12.5px"><b>{{ a.by }}</b> {{ a.text }}<div style="font-size:11px;color:#9a9aa5">{{ a.when }}</div></div></sc-for></div>
+    </div></sc-if>
+    <sc-if value="{{ isRep }}" hint-placeholder-val="{{ false }}"><div>
+      <div style="display:flex;gap:10px;align-items:center;margin-bottom:14px"><span style="font-size:13px;color:#6b6b76">Period</span><select class="vd-in" value="{{ rp }}" onChange="{{ setRp }}" style="width:auto"><option value="all">All time</option><option value="week">Last 7 days</option><option value="month">Last 30 days</option></select></div>
+      <div class="vd-2" style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;align-items:start">
+        <div class="vd-card" style="padding:18px"><div style="font-size:15px;font-weight:500">Completion by member</div><div style="font-size:11.5px;color:#9a9aa5;margin:2px 0 8px">Completed / assigned tasks. Cancelled, draft and archived are excluded.</div>
+          <sc-for list="{{ repRows }}" as="r" hint-placeholder-count="4"><div style="display:flex;align-items:center;gap:10px;padding:8px 0;font-size:13px"><span style="width:26px;height:26px;border-radius:50%;background:{{ r.av }};color:#fff;font-size:10px;display:grid;place-items:center">{{ r.ini }}</span><span style="width:110px">{{ r.name }}</span><div style="flex:1;height:7px;border-radius:4px;background:#eee"><div style="height:7px;border-radius:4px;background:#84cc16;width:{{ r.pctW }}"></div></div><span style="width:70px;text-align:right;font-size:12px">{{ r.st.done }}/{{ r.st.total }} · {{ r.st.pct }}%</span></div></sc-for></div>
+        <div class="vd-card" style="padding:18px"><div style="font-size:15px;font-weight:500;margin-bottom:8px">Team workload</div>
+          <sc-for list="{{ repRows }}" as="r" hint-placeholder-count="4"><div style="display:flex;align-items:center;gap:10px;padding:8px 0;font-size:13px"><span style="width:110px;padding-left:36px">{{ r.name }}</span><div style="flex:1;height:7px;border-radius:4px;background:#eee"><div style="height:7px;border-radius:4px;background:#7c5cf0;width:{{ r.actW }}"></div></div><span style="width:110px;text-align:right;font-size:12px">{{ r.st.active }} open · {{ r.hrs }}h</span></div></sc-for></div>
+        <div class="vd-card" style="padding:18px"><div style="font-size:15px;font-weight:500;margin-bottom:8px">Project performance <span style="font-size:11px;color:#9a9aa5;font-weight:400">task-count</span></div>
+          <sc-for list="{{ repProj }}" as="p" hint-placeholder-count="3"><div style="display:flex;align-items:center;gap:10px;padding:8px 0;font-size:13px"><span style="width:130px">{{ p.name }}<br><span style="font-size:10.5px;color:#9a9aa5">Effort-weighted {{ p.wpct }}</span></span><div style="flex:1;height:7px;border-radius:4px;background:#eee"><div style="height:7px;border-radius:4px;background:{{ p.col }};width:{{ p.pct }}"></div></div><span style="width:90px;text-align:right;font-size:12px">{{ p.d }}/{{ p.n }} · {{ p.pct }}</span></div></sc-for></div>
+        <div class="vd-card" style="padding:18px"><div style="font-size:15px;font-weight:500;margin-bottom:8px">Overdue analysis</div>
+          <sc-for list="{{ repOver }}" as="t" hint-placeholder-count="2"><div onClick="{{ t.open }}" class="vd-row" style="padding:8px 4px;border-top:1px solid #f0f0f3;font-size:12.5px;cursor:pointer"><b style="font-weight:500">{{ t.title }}</b><div style="color:#dc2626;font-size:11.5px">{{ t.dueLabel }} · {{ t.assigneeName }} · {{ t.projName }}</div></div></sc-for>
+          <div style="display:{{ noOver }};font-size:12.5px;color:#9a9aa5">No overdue tasks.</div></div>
+      </div>
+    </div></sc-if>
+    <sc-if value="{{ isSet }}" hint-placeholder-val="{{ false }}"><div class="vd-2" style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;align-items:start">
+      <div class="vd-card" style="padding:18px;display:grid;gap:12px;font-size:12px;color:#6b6b76"><div style="font-size:15px;font-weight:500;color:#17171c">General and delegation</div>
+        <label>Timezone<select class="vd-in" name="tz" value="{{ S.tz }}" onChange="{{ sett }}"><sc-for list="{{ tzs }}" as="z" hint-placeholder-count="3"><option>{{ z }}</option></sc-for></select></label>
+        <label style="display:flex;gap:8px;align-items:center"><input type="checkbox" name="accept" checked="{{ S.accept }}" onChange="{{ sett }}">Require assignees to accept tasks (Awaiting acceptance)</label>
+        <label style="display:flex;gap:8px;align-items:center"><input type="checkbox" name="review" checked="{{ S.review }}" onChange="{{ sett }}">Review-first voice mode (off = auto-save when nothing is ambiguous)</label>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px"><label style="grid-column:1/-1">Voice interpreter<select class="vd-in" name="interp" value="{{ S.interp }}" onChange="{{ sett }}"><option value="">Built-in (works offline)</option><option value="claude">Claude inside claude.ai only</option><option value="endpoint">Claude via my server (works anywhere)</option></select></label><label style="grid-column:1/-1">AI server address (used with "via my server")<input class="vd-in" name="aiUrl" placeholder="http://localhost:8787/interpret" value="{{ S.aiUrl }}" onChange="{{ sett }}"></label><label>Work starts<input class="vd-in" type="time" name="workStart" value="{{ S.workStart }}" onChange="{{ sett }}"></label><label>Work ends<input class="vd-in" type="time" name="workEnd" value="{{ S.workEnd }}" onChange="{{ sett }}"></label></div></div>
+      <div class="vd-card" style="padding:18px;display:grid;gap:12px;font-size:12px;color:#6b6b76"><div style="font-size:15px;font-weight:500;color:#17171c">Voice and notifications</div>
+        <div>Times used for vague phrases. Leave blank to be asked each time.</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px"><label>Morning<input class="vd-in" type="time" name="morning" value="{{ S.morning }}" onChange="{{ sett }}"></label><label>Afternoon<input class="vd-in" type="time" name="afternoon" value="{{ S.afternoon }}" onChange="{{ sett }}"></label><label>Lunch<input class="vd-in" type="time" name="lunch" value="{{ S.lunch }}" onChange="{{ sett }}"></label><label>Evening<input class="vd-in" type="time" name="evening" value="{{ S.evening }}" onChange="{{ sett }}"></label><label>Quiet hours from<input class="vd-in" type="time" name="quietFrom" value="{{ S.quietFrom }}" onChange="{{ sett }}"></label><label>Quiet hours to<input class="vd-in" type="time" name="quietTo" value="{{ S.quietTo }}" onChange="{{ sett }}"></label></div></div>
+      <div class="vd-card" style="padding:18px;font-size:12.5px;color:#55555f;line-height:1.6"><div style="font-size:15px;font-weight:500;color:#17171c;margin-bottom:6px">Data and connection</div>Everything here is saved in this browser (local storage) and survives reloads. Members, tasks, projects, voice history and notifications are fully editable.<br>To share across a team and send real reminders, connect a backend: sign-in, a Postgres database, a scheduled job for reminders, and a speech/AI API key held server-side. The task and voice logic here is written to move over unchanged.
+        <div style="display:flex;gap:8px;margin-top:12px"><button onClick="{{ exportJson }}" style="border:1px solid #e4e4ea;background:#fff;border-radius:10px;padding:8px 12px;font-size:12px">Download backup (JSON)</button><button onClick="{{ resetData }}" style="border:1px solid #fecaca;color:#dc2626;background:#fff;border-radius:10px;padding:8px 12px;font-size:12px">Reset to demo data</button></div></div>
+      <div class="vd-card" style="padding:18px;font-size:12.5px;color:#55555f;line-height:1.7"><div style="font-size:15px;font-weight:500;color:#17171c;margin-bottom:6px">Roles</div>Owner · Admin · Manager · Member · Viewer. Set per member in Team Members. Server-side enforcement needs the backend.</div>
+    </div></sc-if>
+    <!--V-->
+  </main>
+</div>
+<div class="vd-bot" style="position:fixed;left:0;right:0;bottom:0;background:#fff;border-top:1px solid #eee;padding:8px 10px 14px;justify-content:space-around;align-items:center;z-index:30">
+  <sc-for list="{{ botNav }}" as="n" hint-placeholder-count="5"><div onClick="{{ n.go }}" style="display:flex;flex-direction:column;align-items:center;gap:3px;font-size:10.5px;min-width:56px;padding:4px;color:{{ n.fg }}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="{{ n.d }}"/></svg>{{ n.label }}</div></sc-for>
+</div>
+<div onClick="{{ goVoiceMic }}" style="position:fixed;right:26px;bottom:26px;width:58px;height:58px;border-radius:50%;background:linear-gradient(135deg,#b49cff,#7c5cf0);display:{{ fabDisp }};place-items:center;cursor:pointer;box-shadow:0 8px 24px #7c5cf055;z-index:25"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3zM19 10v2a7 7 0 0 1-14 0v-2M12 19v3"/></svg></div>
+<sc-if value="{{ hasDrawer }}" hint-placeholder-val="{{ false }}">
+<div style="position:fixed;inset:0;z-index:50;display:flex;justify-content:flex-end;background:#17171c33" onClick="{{ dClose }}">
+  <div class="vd-drawer" onClick="{{ stopP }}" style="width:480px;max-width:100%;background:#fff;height:100%;overflow-y:auto;padding:22px;box-shadow:-8px 0 30px #0000001a">
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px"><span style="font-size:12px;color:#9a9aa5;flex:1">Task details · saved automatically</span><button onClick="{{ dClose }}" style="border:0;background:#f1f1f4;border-radius:9px;width:32px;height:32px;font-size:16px">×</button></div>
+    <fieldset disabled="{{ dLock }}" style="border:0;padding:0;margin:0;min-width:0"><input class="vd-in" name="title" value="{{ d.title }}" onChange="{{ dset }}" style="font-size:18px;font-weight:500;border-color:transparent;padding:8px 0">
+    <textarea class="vd-in" name="desc" rows="3" placeholder="Add a description" onChange="{{ dset }}" style="margin:8px 0 14px;resize:vertical">{{ d.desc }}</textarea>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;font-size:12px;color:#6b6b76">
+      <label>Assignee<select class="vd-in" name="assignee" value="{{ d.assignee }}" onChange="{{ dset }}"><option value="">Unassigned</option><sc-for list="{{ memOpts }}" as="o" hint-placeholder-count="3"><option value="{{ o.id }}">{{ o.name }}</option></sc-for></select></label>
+      <label>Reviewer<select class="vd-in" name="reviewer" value="{{ d.reviewer }}" onChange="{{ dset }}"><option value="">None</option><sc-for list="{{ memOpts }}" as="o" hint-placeholder-count="3"><option value="{{ o.id }}">{{ o.name }}</option></sc-for></select></label>
+      <label>Project<select class="vd-in" name="projectId" value="{{ d.projectId }}" onChange="{{ dset }}"><option value="">None</option><sc-for list="{{ projOpts }}" as="o" hint-placeholder-count="3"><option value="{{ o.id }}">{{ o.name }}</option></sc-for></select></label>
+      <label>Status<select class="vd-in" name="status" value="{{ d.status }}" onChange="{{ dset }}"><option value="draft">Draft</option><option value="todo">To Do</option><option value="progress">In Progress</option><option value="blocked">Blocked</option><option value="done">Completed</option><option value="cancelled">Cancelled</option></select></label>
+      <label>Priority<select class="vd-in" name="priority" value="{{ d.priority }}" onChange="{{ dset }}"><option>Urgent</option><option>High</option><option>Medium</option><option>Low</option></select></label>
+      <label>Due date<input class="vd-in" type="date" name="due" value="{{ d.due }}" onChange="{{ dset }}"></label>
+      <label>Due time<input class="vd-in" type="time" name="time" value="{{ d.time }}" onChange="{{ dset }}"></label>
+      <label>Estimated effort (hours)<input class="vd-in" type="number" min="0" step="0.5" name="effort" value="{{ d.effort }}" onChange="{{ dset }}"></label>
+    </div>
+    <div style="margin:16px 0 4px;font-size:12px;color:#6b6b76;display:flex;justify-content:space-between"><span>Progress {{ d.pg }}%</span><span>{{ dSubNote }}</span></div>
+    <div style="height:7px;border-radius:4px;background:#eee"><div style="height:7px;border-radius:4px;background:{{ d.stFg }};width:{{ d.pgW }}"></div></div>
+    <div style="display:{{ dProgDisp }};margin-top:8px"><input type="range" min="0" max="99" name="progress" value="{{ d.progress }}" onChange="{{ dset }}" style="width:100%"></div>
+    <div style="font-size:13px;font-weight:600;margin:20px 0 8px">Subtasks</div>
+    <sc-for list="{{ dSubs }}" as="s" hint-placeholder-count="0"><div style="display:flex;align-items:center;gap:8px;padding:6px 0;font-size:13px"><input type="checkbox" checked="{{ s.d }}" onChange="{{ s.tg }}"><span style="flex:1;color:{{ s.tf }};text-decoration:{{ s.td }}">{{ s.t }}</span><a onClick="{{ s.del }}" style="cursor:pointer;color:#9a9aa5">remove</a></div></sc-for>
+    <div style="display:flex;gap:6px;margin-top:6px"><input class="vd-in" name="sub" placeholder="Add subtask" value="{{ f.sub }}" onChange="{{ fld }}"><button onClick="{{ addSub }}" style="border:0;background:#17171c;color:#fff;border-radius:10px;padding:0 14px">Add</button></div>
+    <div style="font-size:13px;font-weight:600;margin:20px 0 8px">Attachments</div>
+    <sc-for list="{{ dAtt }}" as="a" hint-placeholder-count="0"><div style="display:flex;align-items:center;gap:8px;padding:5px 0;font-size:13px"><span style="flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ a.name }} <span style="color:#9a9aa5;font-size:11.5px">{{ a.kb }}</span></span><a href="{{ a.href }}" download="{{ a.name }}" style="display:{{ a.hd }}">download</a><span style="display:{{ a.nd }};font-size:11px;color:#9a9aa5">name only</span><a onClick="{{ a.rm }}" style="cursor:pointer;color:#9a9aa5">remove</a></div></sc-for>
+    <input type="file" onChange="{{ addFile }}" style="font-size:12px;margin-top:4px">
+    <div style="font-size:13px;font-weight:600;margin:20px 0 8px">Dependencies <span style="font-weight:400;color:#9a9aa5">(this task waits for)</span></div>
+    <sc-for list="{{ dDeps }}" as="x" hint-placeholder-count="0"><div style="display:flex;align-items:center;gap:8px;padding:5px 0;font-size:13px"><span style="flex:1">{{ x.title }}</span><span style="font-size:11.5px;color:{{ x.fg }}">{{ x.st }}</span><a onClick="{{ x.rm }}" style="cursor:pointer;color:#9a9aa5">remove</a></div></sc-for>
+    <select class="vd-in" value="" onChange="{{ addDep }}" style="margin-top:4px"><option value="">Add dependency…</option><sc-for list="{{ depOpts }}" as="o" hint-placeholder-count="3"><option value="{{ o.id }}">{{ o.name }}</option></sc-for></select>
+    <div style="font-size:13px;font-weight:600;margin:20px 0 8px">Comments</div>
+    <sc-for list="{{ dCms }}" as="c" hint-placeholder-count="0"><div style="background:#f7f6fb;border-radius:10px;padding:8px 10px;margin-bottom:6px;font-size:12.5px"><b>{{ c.by }}</b> <span style="color:#9a9aa5">{{ c.when }}</span><div>{{ c.t }}</div></div></sc-for>
+    <div style="display:flex;gap:6px"><input class="vd-in" name="cm" placeholder="Write a comment" value="{{ f.cm }}" onChange="{{ fld }}"><button onClick="{{ addCm }}" style="border:0;background:#7c5cf0;color:#fff;border-radius:10px;padding:0 14px">Post</button></div>
+    <div style="display:{{ dFollowDisp }};gap:8px;margin-top:20px"><button onClick="{{ follow }}" style="border:1px solid #c4b5fd;color:#6d4ce0;background:#fff;border-radius:11px;padding:9px 14px;font-size:12.5px">Follow up</button><button onClick="{{ reqUp }}" style="border:1px solid #c4b5fd;color:#6d4ce0;background:#fff;border-radius:11px;padding:9px 14px;font-size:12.5px">Request update</button></div>
+    <div style="display:flex;gap:8px;margin-top:14px;flex-wrap:wrap"><button onClick="{{ dDone }}" style="border:0;background:#16a34a;color:#fff;border-radius:11px;padding:10px 16px;font-size:13px">{{ dDoneLabel }}</button><button onClick="{{ dArch }}" style="border:1px solid #e4e4ea;background:#fff;border-radius:11px;padding:10px 16px;font-size:13px">{{ dArchLabel }}</button><button onClick="{{ dDel }}" style="border:1px solid #fecaca;background:#fff;color:#dc2626;border-radius:11px;padding:10px 16px;font-size:13px;margin-left:auto">Delete</button></div>
+    </fieldset>
+  </div>
+</div>
+</sc-if>
+<sc-if value="{{ showTask }}" hint-placeholder-val="{{ false }}">
+<div style="position:fixed;inset:0;z-index:60;background:#17171c55;display:grid;place-items:center;padding:16px" onClick="{{ closeModal }}">
+  <div onClick="{{ stopP }}" style="background:#fff;border-radius:20px;padding:22px;width:480px;max-width:100%;max-height:92vh;overflow-y:auto">
+    <div style="font-size:18px;font-weight:500;margin-bottom:14px">New task</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;font-size:12px;color:#6b6b76">
+      <label style="grid-column:1/3">Title<input class="vd-in" name="title" value="{{ f.title }}" onChange="{{ fld }}" placeholder="What needs to be done?"></label>
+      <label>Assignee<select class="vd-in" name="assignee" value="{{ f.assignee }}" onChange="{{ fld }}"><option value="">Unassigned (draft)</option><sc-for list="{{ memOpts }}" as="o" hint-placeholder-count="3"><option value="{{ o.id }}">{{ o.name }}</option></sc-for></select></label>
+      <label>Project<select class="vd-in" name="projectId" value="{{ f.projectId }}" onChange="{{ fld }}"><option value="">None</option><sc-for list="{{ projOpts }}" as="o" hint-placeholder-count="3"><option value="{{ o.id }}">{{ o.name }}</option></sc-for></select></label>
+      <label>Due date<input class="vd-in" type="date" name="due" value="{{ f.due }}" onChange="{{ fld }}"></label>
+      <label>Due time<input class="vd-in" type="time" name="time" value="{{ f.time }}" onChange="{{ fld }}"></label>
+      <label>Priority<select class="vd-in" name="priority" value="{{ f.priority }}" onChange="{{ fld }}"><option>Urgent</option><option>High</option><option>Medium</option><option>Low</option></select></label>
+    </div>
+    <div style="display:{{ fErrDisp }};color:#dc2626;font-size:12.5px;margin-top:10px">{{ f.err }}</div>
+    <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:18px"><button onClick="{{ closeModal }}" style="border:1px solid #e4e4ea;background:#fff;border-radius:11px;padding:10px 16px;font-size:13px">Cancel</button><button onClick="{{ createTask }}" style="border:0;background:#17171c;color:#fff;border-radius:11px;padding:10px 18px;font-size:13px">Create task</button></div>
+  </div>
+</div>
+</sc-if>
+<sc-if value="{{ showMember }}" hint-placeholder-val="{{ false }}">
+<div style="position:fixed;inset:0;z-index:60;background:#17171c55;display:grid;place-items:center;padding:16px" onClick="{{ closeModal }}">
+  <div onClick="{{ stopP }}" style="background:#fff;border-radius:20px;padding:22px;width:560px;max-width:100%;max-height:92vh;overflow-y:auto">
+    <div style="font-size:18px;font-weight:500;margin-bottom:14px">Team member</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;font-size:12px;color:#6b6b76">
+      <label>Full name<input class="vd-in" name="name" value="{{ f.name }}" onChange="{{ fld }}"></label>
+      <label>Display name<input class="vd-in" name="disp" value="{{ f.disp }}" onChange="{{ fld }}"></label>
+      <label>Work email<input class="vd-in" name="email" value="{{ f.email }}" onChange="{{ fld }}"></label>
+      <label>Mobile<input class="vd-in" name="phone" value="{{ f.phone }}" onChange="{{ fld }}"></label>
+      <label>Department<input class="vd-in" name="dept" value="{{ f.dept }}" onChange="{{ fld }}"></label>
+      <label>Designation<input class="vd-in" name="desig" value="{{ f.desig }}" onChange="{{ fld }}"></label>
+      <label>Workspace role<select class="vd-in" name="role" value="{{ f.role }}" onChange="{{ fld }}"><sc-for list="{{ roles }}" as="r" hint-placeholder-count="5"><option>{{ r }}</option></sc-for></select></label>
+      <label>Reporting manager<select class="vd-in" name="mgr" value="{{ f.mgr }}" onChange="{{ fld }}"><option value="">None</option><sc-for list="{{ mgrOpts }}" as="o" hint-placeholder-count="3"><option value="{{ o.id }}">{{ o.name }}</option></sc-for></select></label>
+      <label style="grid-column:1/-1">Spoken name aliases (comma separated)<input class="vd-in" name="aliasTxt" value="{{ f.aliasTxt }}" onChange="{{ fld }}" placeholder="Rahul, Rahul Sharma, Rahul S."></label>
+      <label style="display:{{ fActiveDisp }};grid-column:1/-1">Reassign open tasks to on deactivation<select class="vd-in" name="reassign" value="{{ f.reassign }}" onChange="{{ fld }}"><option value="">Leave unassigned (draft)</option><sc-for list="{{ reOpts }}" as="o" hint-placeholder-count="3"><option value="{{ o.id }}">{{ o.name }}</option></sc-for></select></label>
+    </div>
+    <div style="display:{{ fErrDisp }};color:#dc2626;font-size:12.5px;margin-top:10px">{{ f.err }}</div>
+    <div style="display:flex;gap:8px;margin-top:18px;flex-wrap:wrap"><button onClick="{{ deactivate }}" style="display:{{ fActiveDisp }};border:1px solid #fecaca;color:#dc2626;background:#fff;border-radius:11px;padding:10px 14px;font-size:13px">Deactivate</button><button onClick="{{ activate }}" style="display:{{ fInactiveDisp }};border:1px solid #e4e4ea;background:#fff;border-radius:11px;padding:10px 14px;font-size:13px">Reactivate</button><span style="flex:1"></span><button onClick="{{ closeModal }}" style="border:1px solid #e4e4ea;background:#fff;border-radius:11px;padding:10px 16px;font-size:13px">Cancel</button><button onClick="{{ saveMember }}" style="border:0;background:#17171c;color:#fff;border-radius:11px;padding:10px 18px;font-size:13px">Save</button></div>
+  </div>
+</div>
+</sc-if>
+<sc-if value="{{ showProj }}" hint-placeholder-val="{{ false }}">
+<div style="position:fixed;inset:0;z-index:60;background:#17171c55;display:grid;place-items:center;padding:16px" onClick="{{ closeModal }}">
+  <div onClick="{{ stopP }}" style="background:#fff;border-radius:20px;padding:22px;width:500px;max-width:100%;max-height:92vh;overflow-y:auto">
+    <div style="font-size:18px;font-weight:500;margin-bottom:14px">Project</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;font-size:12px;color:#6b6b76">
+      <label style="grid-column:1/3">Name<input class="vd-in" name="name" value="{{ f.name }}" onChange="{{ fld }}"></label>
+      <label style="grid-column:1/3">Description<input class="vd-in" name="desc" value="{{ f.desc }}" onChange="{{ fld }}"></label>
+      <label>Owner<select class="vd-in" name="owner" value="{{ f.owner }}" onChange="{{ fld }}"><sc-for list="{{ memOpts }}" as="o" hint-placeholder-count="3"><option value="{{ o.id }}">{{ o.name }}</option></sc-for></select></label>
+      <label>Status<select class="vd-in" name="status" value="{{ f.status }}" onChange="{{ fld }}"><option>Active</option><option>On hold</option><option>Completed</option></select></label>
+      <label>Start<input class="vd-in" type="date" name="start" value="{{ f.start }}" onChange="{{ fld }}"></label>
+      <label>Target date<input class="vd-in" type="date" name="target" value="{{ f.target }}" onChange="{{ fld }}"></label>
+      <label>Colour<input class="vd-in" type="color" name="col" value="{{ f.col }}" onChange="{{ fld }}" style="height:38px;padding:3px"></label>
+    </div>
+    <div style="display:{{ msDisp }};margin-top:16px;font-size:12px;color:#6b6b76"><div style="font-weight:600;color:#17171c;margin-bottom:6px;font-size:13px">Milestones</div>
+      <sc-for list="{{ msList }}" as="m" hint-placeholder-count="0"><div style="display:flex;gap:8px;align-items:center;padding:4px 0;font-size:13px;color:#17171c"><input type="checkbox" checked="{{ m.done }}" onChange="{{ m.tg }}"><span style="flex:1">{{ m.name }}</span><span style="color:#9a9aa5;font-size:11.5px">{{ m.date }}</span><a onClick="{{ m.del }}" style="cursor:pointer;color:#9a9aa5">remove</a></div></sc-for>
+      <div style="display:flex;gap:6px;margin-top:4px"><input class="vd-in" name="msName" placeholder="Milestone name" value="{{ f.msName }}" onChange="{{ fld }}"><input class="vd-in" type="date" name="msDate" value="{{ f.msDate }}" onChange="{{ fld }}" style="width:150px"><button onClick="{{ addMs }}" style="border:0;background:#17171c;color:#fff;border-radius:10px;padding:0 14px">Add</button></div></div>
+    <div style="display:{{ fErrDisp }};color:#dc2626;font-size:12.5px;margin-top:10px">{{ f.err }}</div>
+    <div style="display:flex;gap:8px;margin-top:18px"><button onClick="{{ delProj }}" style="display:{{ fProjId }};border:1px solid #fecaca;color:#dc2626;background:#fff;border-radius:11px;padding:10px 14px;font-size:13px">Delete</button><span style="flex:1"></span><button onClick="{{ closeModal }}" style="border:1px solid #e4e4ea;background:#fff;border-radius:11px;padding:10px 16px;font-size:13px">Cancel</button><button onClick="{{ saveProj }}" style="border:0;background:#17171c;color:#fff;border-radius:11px;padding:10px 18px;font-size:13px">Save</button></div>
+  </div>
+</div>
+</sc-if>
+<!--OVERLAYS-->
+<div style="position:fixed;left:50%;transform:translateX(-50%);bottom:90px;background:#17171c;color:#fff;border-radius:12px;padding:11px 16px;font-size:13px;display:{{ toastDisp }};align-items:center;gap:14px;z-index:80;max-width:92vw"><span>{{ toastMsg }}</span><a onClick="{{ toastUndo }}" style="color:#c4b5fd;cursor:pointer;display:{{ toastUndoDisp }}">Undo</a></div>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  K='voicedesk.v2';
+  state={db:this.load(),nav:'dash',tab:'all',tv:'list',q:'',pf:'',mf:'',gb:'',sel:{},drawer:null,modal:null,f:{},toast:null,cm:0,vs:'idle',vt:'',vd:0,bars:[],cards:[],lang:'en-IN',perm:'',vmsg:'',sess:'',done:false,rp:'all',lastBatch:null};
+  iso(d){const z=new Date(d);z.setMinutes(z.getMinutes()-z.getTimezoneOffset());return z.toISOString().slice(0,10)}
+  today(){return this.iso(new Date())}
+  add(s,n){const d=new Date(s+'T12:00:00');d.setDate(d.getDate()+n);return this.iso(d)}
+  uid(){return Math.random().toString(36).slice(2,10)}
+  nowT(){return new Date().toTimeString().slice(0,5)}
+  fd(s){return s?new Date(s+'T12:00:00').toLocaleDateString('en-GB',{day:'2-digit',month:'short'}):'No date'}
+  ago(ts){const m=Math.round((Date.now()-ts)/60000);return m<1?'just now':m<60?m+' min ago':m<1440?Math.round(m/60)+' h ago':Math.round(m/1440)+' d ago'}
+  load(){try{const d=JSON.parse(localStorage.getItem(this.K));if(d&&d.tasks)return d}catch(e){}return this.seed()}
+  seed(){
+    const t=this.today(),a=n=>this.add(t,n),av=['#7c5cf0','#0ea5e9','#f59e0b','#10b981','#ec4899','#64748b'];
+    const M=(i,name,disp,dept,des,role,al,mgr)=>({id:'m'+i,name,disp,email:disp.toLowerCase()+'@studio.in',phone:'+91 98'+(10000000+i*1234567),dept,desig:des,role,mgr:mgr||'',team:dept,tz:'Asia/Kolkata',active:true,aliases:al,av:av[i-1]});
+    const members=[M(1,'Meera Kapoor','Meera','Operations','Founder','Owner',['meera','mam']),M(2,'Rahul Sharma','Rahul','Design','Designer','Member',['rahul','rahul sharma','rahul s'],'m4'),M(3,'Rahul Verma','Rahul V','Engineering','Developer','Member',['rahul','rahul verma','rahul v'],'m1'),M(4,'Priya Nair','Priya','Design','Design Lead','Manager',['priya','priya nair'],'m1'),M(5,'Amit Singh','Amit','Sales','Sales Executive','Member',['amit','amit singh'],'m1'),M(6,'Sneha Rao','Sneha','Engineering','Engineer','Member',['sneha','sneha rao'],'m1')];
+    const projects=[{id:'p1',name:'Inventory App',desc:'Stock tracking UI and API',owner:'m1',start:a(-20),target:a(21),status:'Active',col:'#84cc16'},{id:'p2',name:'Customer Portal',desc:'Client-facing order pages',owner:'m4',start:a(-12),target:a(35),status:'Active',col:'#7c5cf0'},{id:'p3',name:'Site Operations',desc:'Site visits and quotations',owner:'m1',start:a(-30),target:a(14),status:'Active',col:'#38bdf8'}];
+    const T=(title,p,as,pr,st,prog,due,time,subs)=>({id:this.uid(),title,desc:'',projectId:p,assignee:as,assignedBy:'m1',createdBy:'m1',priority:pr,status:st,progress:prog,due,time:time||'',effort:'',subtasks:(subs||[]).map(x=>({id:this.uid(),t:x[0],d:x[1]})),comments:[],archived:false,accepted:true,created:Date.now()-864e5*3,completedAt:st==='done'?Date.now()-864e5:null,rec:''});
+    const tasks=[T('Inventory UI screens','p1','m2','High','progress',40,a(1),'16:00',[['Stock list',true],['Item detail',true],['Filters',false]]),T('Review customer page copy','p2','m4','Medium','todo',0,a(3),''),T('Prepare quotations','p3','m5','High','progress',60,a(0),'18:00'),T('Site review visit','p3','m1','Medium','todo',0,a(6),'11:00'),T('Fix login redirect bug','p2','m3','Urgent','blocked',30,a(-1),''),T('API for stock levels','p1','m3','High','progress',55,a(5),''),T('Update team work log','p3','m6','Low','todo',0,a(2),'10:00'),T('Brand guideline PDF','p2','m2','Medium','done',100,a(-4),''),T('Onboarding checklist','p3','m4','Low','done',100,a(-2),''),T('Vendor price comparison','p1','m5','Medium','todo',0,a(-2),'')];
+    return {meId:'m1',members,projects,tasks,activity:[{id:'x1',by:'m1',text:'created workspace VoiceDesk',at:Date.now()-36e5}],notifs:[],voice:[],keys:{},settings:{tz:'Asia/Kolkata',accept:false,review:true,morning:'10:00',afternoon:'14:00',evening:'',lunch:'13:00',workStart:'09:30',workEnd:'18:30',quietFrom:'21:00',quietTo:'08:00',remBefore:'60'}};
+  }
+  mut(fn,msg){const db=JSON.parse(JSON.stringify(this.state.db));fn(db);if(msg)db.activity.unshift({id:this.uid(),by:db.meId,text:msg,at:Date.now()});db.activity=db.activity.slice(0,200);localStorage.setItem(this.K,JSON.stringify(db));this.setState({db})}
+  mem(id){return this.state.db.members.find(m=>m.id===id)}
+  nm(id){const m=this.mem(id);return m?m.disp:'Unassigned'}
+  ini(n){return n.split(' ').map(x=>x[0]).slice(0,2).join('').toUpperCase()}
+  prog(t){if(t.subtasks&&t.subtasks.length)return Math.round(t.subtasks.filter(s=>s.d).length/t.subtasks.length*100);return t.status==='done'?100:(t.status==='todo'||t.status==='draft')?0:(t.progress||0)}
+  isActive(t){return !t.archived&&t.status!=='done'&&t.status!=='cancelled'&&t.status!=='draft'}
+  isOver(t){const T=this.today();return this.isActive(t)&&!!t.due&&(t.due<T||(t.due===T&&!!t.time&&t.time<this.nowT()))}
+  setStatus(db,t,st){
+    t.status=st;
+    if(st==='done'){t.progress=100;t.completedAt=Date.now();(t.subtasks||[]).forEach(s=>s.d=true);
+      if(t.rec){const n=JSON.parse(JSON.stringify(t));n.id=this.uid();n.status='todo';n.progress=0;n.completedAt=null;n.subtasks.forEach(s=>s.d=false);n.due=this.add(t.due||this.today(),7);db.tasks.push(n)}}
+    else{if(t.completedAt){t.completedAt=null;if(!(t.subtasks||[]).length)t.progress=0}if(st==='todo'&&!(t.subtasks||[]).length&&t.progress===100)t.progress=0}
+  }
+  notify(db,to,text,kind){if(to&&to!==db.meId)db.notifs.unshift({id:this.uid(),to,text,kind:kind||'assignment',at:Date.now(),read:false,delivery:'in-app: delivered'})}
+  stMeta(s){return {draft:['Draft','#9a9aa5'],todo:['To Do','#38bdf8'],progress:['In Progress','#7c5cf0'],blocked:['Blocked','#f59e0b'],done:['Completed','#16a34a'],cancelled:['Cancelled','#9a9aa5']}[s]||['?','#999']}
+  prMeta(p){return {Urgent:['#fee2e2','#b91c1c'],High:['#fee2e2','#dc2626'],Medium:['#fef3c7','#d97706'],Low:['#f1f1f4','#6b6b76']}[p]||['#f1f1f4','#555']}
+  deco(t){
+    const db=this.state.db,T=this.today(),st=this.stMeta(t.status),pr=this.prMeta(t.priority),p=db.projects.find(x=>x.id===t.projectId),ov=this.isOver(t),pg=this.prog(t);
+    let dl=t.due?(t.due===T?'Today':t.due===this.add(T,1)?'Tomorrow':this.fd(t.due)):'No date';if(t.due&&t.time)dl+=' '+t.time;
+    return Object.assign({},t,{assigneeName:this.nm(t.assignee),byName:this.nm(t.assignedBy),projName:p?p.name:'No project',stLabel:st[0],stFg:st[1],prBg:pr[0],prFg:pr[1],dueLabel:dl,dueFg:ov?'#dc2626':'#17171c',over:ov,pg,pgW:pg+'%',aav:(this.mem(t.assignee)||{av:'#ccc'}).av,aini:this.ini(this.nm(t.assignee)),done:t.status==='done',open:()=>this.setState({drawer:t.id}),subTotal:(t.subtasks||[]).length,subDone:(t.subtasks||[]).filter(s=>s.d).length});
+  }
+  go=(k)=>()=>this.setState({nav:k,tab:k==='mine'?'today':'all',drawer:null,q:'',sel:{}});
+  goAct=()=>this.go('act')();
+  goAll=()=>this.go('all')();
+  goVoiceMic=()=>{this.setState({nav:'voice',drawer:null});setTimeout(()=>this.startRec(),60)};
+  kpiGo=(tab)=>()=>this.setState({nav:'all',tab,q:'',sel:{}});
+  renderVals(){return Object.assign({},this.rvCore(),this.rvTasks(),this.rvVoice(),this.rvMisc()/*RV*/)}
+  rvCore(){
+    const s=this.state,db=s.db,me=this.mem(db.meId),T=this.today(),tasks=db.tasks.filter(t=>!t.archived&&this.visible(t));
+    const act=tasks.filter(t=>this.isActive(t)),done=tasks.filter(t=>t.status==='done'),prg=tasks.filter(t=>t.status==='progress'),ov=tasks.filter(t=>this.isOver(t));
+    const elig=act.length+done.length,pct=elig?Math.round(done.length/elig*100):0;
+    const NAV=[['dash','Dashboard','Overview','M3 3h7v7H3zM14 3h7v7h-7zM14 14h7v7h-7zM3 14h7v7H3z'],['voice','Voice Desk','','M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3zM19 10v2a7 7 0 0 1-14 0v-2M12 19v3'],['all','All Tasks','Tasks','M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01'],['mine','My Tasks','','M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z'],['deleg','Delegated','','M22 2L11 13M22 2l-7 20-4-9-9-4z'],['team','Team Members','Workspace','M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75'],['proj','Projects','','M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z'],['act','Reminders & Activity','','M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 0 1-3.46 0'],['rep','Reports','','M18 20V10M12 20V4M6 20v-6'],['set','Settings','','M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3M1 14h6M9 8h6M17 16h6']];
+    const unread=db.notifs.filter(n=>n.to===db.meId&&!n.read).length;
+    const navKey=s.nav;
+    const navItems=NAV.filter(n=>n[0]==='rep'?this.can('reports.view'):n[0]==='set'?this.can('workspace.manage'):true).map(n=>({d:n[3],label:n[1],group:n[2],gdisp:n[2]?'block':'none',go:this.go(n[0]),bg:navKey===n[0]?'#fff':'transparent',sh:navKey===n[0]?'0 1px 4px #00000014':'none',fw:navKey===n[0]?600:400,badge:unread,bdisp:n[0]==='act'&&unread?'block':'none'}));
+    const bk=['dash','voice','all','mine','team'];
+    const botNav=bk.map(k=>{const n=NAV.find(x=>x[0]===k);return {d:n[3],label:n[1].replace(' Members','').replace('All Tasks','Tasks').replace('Voice Desk','Voice'),go:this.go(k),fg:navKey===k?'#7c5cf0':'#6b6b76'}});
+    const sc={all:['Overdue','#dc2626'],x:0};
+    const kpis=[['Active tasks',act.length,'active','#17171c'],['In progress',prg.length,'progress','#7c5cf0'],['Completed',done.length,'done','#16a34a'],['Overdue',ov.length,'overdue','#dc2626'],['Completion',pct+'%','all','#17171c']].map(k=>({label:k[0],val:k[1],go:this.kpiGo(k[2]),fg:k[3],bdisp:k[0]==='Completion'?'block':'none',w:pct+'%'}));
+    const cnt=st=>tasks.filter(t=>t.status===st).length,tot=tasks.length||1;
+    const L=[['Not started',['todo','draft'],'#7dd3fc'],['In progress',['progress'],'#8b6cf6'],['Blocked',['blocked'],'#facc15'],['Completed',['done'],'#84cc16']].map(x=>({label:x[0],col:x[2],n:tasks.filter(t=>x[1].includes(t.status)).length}));
+    let acc=0;const stops=L.map(l=>{const a=acc/tot*100;acc+=l.n;return l.col+' '+a+'% '+(acc/tot*100)+'%'}).join(',');
+    const pc=db.projects.slice(0,3).map(p=>{const pt=db.tasks.filter(t=>t.projectId===p.id&&!t.archived&&t.status!=='cancelled'&&t.status!=='draft'),d=pt.filter(t=>t.status==='done').length;return {name:p.name,col:p.col,target:this.fd(p.target),count:pt.length,pct:(pt.length?Math.round(d/pt.length*100):0)+'%',go:this.go('proj')}});
+    const dash=tasks.filter(t=>this.isActive(t)).sort((a,b)=>(a.due||'9')<(b.due||'9')?-1:1).slice(0,7).map(t=>this.deco(t));
+    const titles={dash:'Dashboard',voice:'Voice Desk',all:'All Tasks',mine:'My Tasks',deleg:'Delegated Tasks',team:'Team Members',proj:'Projects & Groups',act:'Reminders & Activity',rep:'Reports',set:'Settings'};
+    const feed=db.activity.slice(0,5).map(a=>({by:this.nm(a.by),text:a.text,when:this.ago(a.at)}));
+    const tm=s.toast;
+    return {me:Object.assign({},me,{ini:this.ini(me.name)}),navItems,botNav,title:titles[s.nav],unread,unreadDisp:unread?'block':'none',avStack:db.members.filter(m=>m.active).slice(0,4).map(m=>({av:m.av,ini:this.ini(m.name)})),
+      isDash:s.nav==='dash',kpis,projCards:pc,dashTasks:dash,donut:'conic-gradient('+stops+')',totalTasks:tasks.length,legend:L.map(l=>({label:l.label,col:l.col,pct:Math.round(l.n/tot*100)+'%'})),actFeed:feed,noActDisp:feed.length?'none':'block',
+      meId:db.meId,actors:db.members.filter(m=>m.active).map(m=>({id:m.id,label:m.disp+' ('+m.role+')'})),setMe:(e)=>{this.mut(d=>{d.meId=e.target.value});this.setState({nav:'dash',drawer:null,modal:null})},newDisp:this.can('task.create')?'block':'none',addMemDisp:this.can('members.manage')?'block':'none',addProjDisp:this.can('task.assign')?'block':'none',goAct:this.goAct,goAll:this.goAll,goVoiceMic:this.goVoiceMic,fabDisp:s.nav==='voice'?'none':'grid',openNewTask:()=>this.setState({modal:'task',f:{title:'',assignee:'',projectId:'',due:'',time:'',priority:'Medium'}}),
+      toastDisp:tm?'flex':'none',toastMsg:tm?tm.msg:'',toastUndoDisp:tm&&tm.undo?'inline':'none',toastUndo:()=>{if(tm&&tm.undo)tm.undo();this.setState({toast:null})}};
+  }
+  can(cap,t){const me=this.state.db.meId,m=this.mem(me),R=m?m.role:'Viewer';if(R==='Owner'||R==='Admin')return true;if(R==='Manager')return cap!=='members.manage'&&cap!=='workspace.manage';if(R==='Viewer')return cap==='reports.view';if(cap==='task.create')return true;if(cap==='task.edit'||cap==='task.complete')return !!t&&(t.assignee===me||t.createdBy===me);if(cap==='task.delete')return !!t&&t.createdBy===me;return false}
+  deny(){this.flash('Your role does not allow this action');return false}
+  visible(t){const me=this.state.db.meId,m=this.mem(me);if(!m||m.role!=='Member')return true;return t.assignee===me||t.createdBy===me||t.assignedBy===me||t.reviewer===me}
+  async interpretAI(text){
+    const db=this.state.db,T=this.today();this.setState({vmsg:'Interpreting with Claude…',vs:'thinking'});
+    try{
+      const prompt='You convert a spoken task instruction (English, Hindi or Hinglish) into JSON. Today is '+T+' ('+this.DN[new Date().getDay()]+'), now '+this.nowT()+', timezone '+db.settings.tz+'.\nMembers: '+JSON.stringify(db.members.filter(m=>m.active).map(m=>({id:m.id,name:m.name,aliases:m.aliases})))+'\nProjects: '+JSON.stringify(db.projects.map(p=>({id:p.id,name:p.name})))+'\nTasks: '+JSON.stringify(db.tasks.filter(t=>!t.archived).map(t=>({id:t.id,title:t.title,assignee:t.assignee})))+'\nReturn ONLY JSON: {"items":[{"intent":"create|complete|reopen|reschedule|priority|comment|delete|query|recurring","title":"short clean title (for comment: the comment text)","assigneeIds":[],"reviewerId":"","date":"YYYY-MM-DD or empty","time":"HH:MM or empty","timeNeedsChoice":"morning|afternoon|evening|lunch only if a vague time was said and no clock time, else empty","priority":"Urgent|High|Medium|Low or empty","projectId":"","refTaskId":"","recurrence":"weekday name or empty","reminder":null,"notes":""}]}\nRules: use only ids given above. Never invent a person or a deadline. If a name matches several members list all their ids in assigneeIds. Leave unspecified fields empty. "kal" means tomorrow unless the verb is past tense. One item per task.\nInstruction: '+JSON.stringify(text);
+      const S0=db.settings;let out;if(S0.interp==='endpoint'&&S0.aiUrl){const r=await fetch(S0.aiUrl,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({prompt})});if(!r.ok)throw new Error('endpoint '+r.status);out=(await r.json()).text}else out=await window.claude.complete(prompt);const js=JSON.parse(out.slice(out.indexOf('{'),out.lastIndexOf('}')+1));
+      const ok=id=>db.members.some(m=>m.id===id&&m.active);
+      const cards=(js.items||[]).map(it=>{const ids=(it.assigneeIds||[]).filter(ok),ref=db.tasks.some(t=>t.id===it.refTaskId)?it.refTaskId:'',date=/^\d{4}-\d\d-\d\d$/.test(it.date||'')?it.date:'',time=/^\d\d:\d\d$/.test(it.time||'')?it.time:'',part=it.timeNeedsChoice||'';
+        const intent=['create','complete','reopen','reschedule','priority','comment','delete','query','recurring'].includes(it.intent)?it.intent:'create';
+        const c={id:this.uid(),intent,src:text,title:(it.title||'').trim(),assignee:ids.length===1?ids[0]:'',reviewer:ok(it.reviewerId)?it.reviewerId:'',cands:ids.length>1?ids:[],hint:'',date,time,part,prio:['Urgent','High','Medium','Low'].includes(it.priority)?it.priority:'',proj:db.projects.some(p=>p.id===it.projectId)?it.projectId:'',ref,refAmb:[],rem:it.reminder&&(it.reminder.date||it.reminder.time)?{date:it.reminder.date||'',time:it.reminder.time||''}:null,rec:it.recurrence||'',soft:['Interpreted by Claude'+(it.notes?': '+it.notes:'')],pastIssue:!!(date&&time&&(date+'T'+time)<(T+'T'+this.nowT())),needTime:!!part&&!time,confirm:false,results:[]};
+        if(intent==='query')c.results=db.tasks.filter(t=>!t.archived&&this.isActive(t)&&(!c.assignee||t.assignee===c.assignee)).map(t=>t.title+' · '+this.nm(t.assignee)+' · '+(t.due?this.fd(t.due):'no date'));
+        return c});
+      if(!cards.length)throw new Error('empty');
+      this.setState({vmsg:''});this.finish(cards,text);
+    }catch(e){this.setState({vmsg:'Claude was unavailable, so the built-in interpreter was used.',vs:'idle'});this.interpretLocal(text)}
+  }
+  finish(cards,text){const db=this.state.db,sess=this.uid();this.setState({cards,sess,done:false,vs:'review'});this.mut(d=>{d.voice.unshift({id:sess,text,at:Date.now(),n:cards.length})},null);if(!db.settings.review&&cards.length&&cards.every(k=>!this.blockWhy(k)))setTimeout(()=>this.commit(),50)}
+  interpret(text){const S1=this.state.db.settings;if((S1.interp==='claude'&&window.claude&&window.claude.complete)||(S1.interp==='endpoint'&&S1.aiUrl)){this.interpretAI(text);return}this.interpretLocal(text)}
+  addFile=(e)=>{const inp=e.target,fl=inp.files[0],id=this.state.drawer;if(!fl)return;const big=fl.size>400*1024;const rd=new FileReader();rd.onload=()=>{this.mut(d=>{const t=d.tasks.find(x=>x.id===id);t.attachments=(t.attachments||[]).concat({id:this.uid(),name:fl.name,size:fl.size,data:big?'':rd.result})},'attached '+fl.name);if(big)this.flash('Large file: only the name is stored in this prototype')};if(big){rd.onload();}else rd.readAsDataURL(fl);inp.value=''}
+  flash(msg,undo){this.setState({toast:{msg,undo}});clearTimeout(this._tt);this._tt=setTimeout(()=>this.setState({toast:null}),5000)}
+  fld=(e)=>{const n=e.target.name,v=e.target.type==='checkbox'?e.target.checked:e.target.value;this.setState(s=>({f:Object.assign({},s.f,{[n]:v})}))}
+  complete(id){const tt=this.state.db.tasks.find(x=>x.id===id);if(!this.can('task.complete',tt)){this.deny();return}if(tt.status!=='done'&&(tt.deps||[]).some(i=>{const x=this.state.db.tasks.find(y=>y.id===i);return x&&x.status!=='done'})&&!confirm('This task has unfinished dependencies. Complete anyway?'))return;this.mut(db=>{const t=db.tasks.find(x=>x.id===id);if(t.status==='done'){this.setStatus(db,t,'todo');}else{this.setStatus(db,t,'done');this.notify(db,t.assignedBy,'"'+t.title+'" was completed by '+this.nm(db.meId),'completed')}},'marked "'+this.state.db.tasks.find(x=>x.id===id).title+'" '+(this.state.db.tasks.find(x=>x.id===id).status==='done'?'reopened':'completed'))}
+  dset=(e)=>{const n=e.target.name,v=e.target.value,id=this.state.drawer;if(!this.can('task.edit',this.state.db.tasks.find(x=>x.id===id)))return this.deny();const quiet=n==='title'||n==='desc'||n==='progress';
+    this.mut(db=>{const t=db.tasks.find(x=>x.id===id);if(n==='status')this.setStatus(db,t,v);else if(n==='assignee'){t.assignee=v;t.accepted=!db.settings.accept||v===db.meId;this.notify(db,v,'You were assigned "'+t.title+'"')}else if(n==='progress')t.progress=+v;else if(n==='due'){t[n]=v;this.notify(db,t.assignee,'Deadline changed for "'+t.title+'"','deadline')}else t[n]=v},quiet?null:'updated '+n+' of "'+this.state.db.tasks.find(x=>x.id===id).title+'"')}
+  togSub(sid){this.mut(db=>{const t=db.tasks.find(x=>x.id===this.state.drawer);const s=t.subtasks.find(x=>x.id===sid);s.d=!s.d;if(t.subtasks.every(x=>x.d)&&t.status!=='done'){t.status='progress'}})}
+  addSub=()=>{const v=(this.state.f.sub||'').trim();if(!v)return;this.mut(db=>{db.tasks.find(x=>x.id===this.state.drawer).subtasks.push({id:this.uid(),t:v,d:false})});this.setState(s=>({f:Object.assign({},s.f,{sub:''})}))}
+  addCm=()=>{const v=(this.state.f.cm||'').trim();if(!v)return;this.mut(db=>{const t=db.tasks.find(x=>x.id===this.state.drawer);t.comments.push({id:this.uid(),by:db.meId,t:v,at:Date.now()});this.notify(db,t.assignee,'New comment on "'+t.title+'"','comment')},'commented on a task');this.setState(s=>({f:Object.assign({},s.f,{cm:''})}))}
+  delTask(id){const t=this.state.db.tasks.find(x=>x.id===id);if(!this.can('task.delete',t)){this.deny();return}if(!confirm('Delete "'+t.title+'"? This cannot be undone.'))return;this.mut(db=>{db.tasks=db.tasks.filter(x=>x.id!==id)},'deleted "'+t.title+'"');this.setState({drawer:null})}
+  arch(id){if(!this.can('task.edit',this.state.db.tasks.find(x=>x.id===id))){this.deny();return}this.mut(db=>{const t=db.tasks.find(x=>x.id===id);t.archived=!t.archived},'archived/restored a task');this.setState({drawer:null})}
+  createTask=()=>{const f=this.state.f;if(!this.can('task.create'))return this.deny();if(!(f.title||'').trim()){this.setState(s=>({f:Object.assign({},s.f,{err:'Title is required'})}));return}
+    this.mut(db=>{let as=f.assignee||'';if(!this.can('task.assign'))as=db.meId;const t={id:this.uid(),title:f.title.trim(),desc:'',projectId:f.projectId||'',assignee:as,assignedBy:db.meId,createdBy:db.meId,priority:f.priority||'Medium',status:as?'todo':'draft',progress:0,due:f.due||'',time:f.time||'',effort:'',subtasks:[],comments:[],archived:false,accepted:!db.settings.accept||as===db.meId,created:Date.now(),completedAt:null,rec:''};db.tasks.push(t);this.notify(db,as,'You were assigned "'+t.title+'"')},'created "'+f.title.trim()+'"');this.setState({modal:null,f:{}});this.flash('Task created')}
+  bulk(fn,msg){const ids=Object.keys(this.state.sel).filter(k=>this.state.sel[k]);if(!ids.length)return;this.mut(db=>{db.tasks.filter(t=>ids.includes(t.id)&&this.can('task.edit',t)).forEach(t=>fn(db,t))},msg+' ('+ids.length+' tasks)');this.setState({sel:{}})}
+  bulkSet=(e)=>{const n=e.target.name,v=e.target.value;if(!v)return;if(n==='st')this.bulk((db,t)=>this.setStatus(db,t,v),'bulk status');else if(n==='as')this.bulk((db,t)=>{t.assignee=v;if(t.status==='draft')t.status='todo';this.notify(db,v,'You were assigned "'+t.title+'"')},'bulk assigned');else if(n==='du')this.bulk((db,t)=>{t.due=v},'bulk due date')}
+  stopP=(e)=>e.stopPropagation()
+  editCell(id,n,v){if(!this.can('task.edit',this.state.db.tasks.find(x=>x.id===id)))return this.deny();const quiet=n==='title'||n==='effort';this.mut(db=>{const t=db.tasks.find(x=>x.id===id);if(n==='status')this.setStatus(db,t,v);else if(n==='assignee'){t.assignee=v;t.accepted=!db.settings.accept||v===db.meId;if(t.status==='draft'&&v)t.status='todo';this.notify(db,v,'You were assigned "'+t.title+'"')}else if(n==='due'){t.due=v;this.notify(db,t.assignee,'Deadline changed for "'+t.title+'"','deadline')}else t[n]=v},quiet?null:'edited '+n+' in master table')}
+  reaches(from,target){const db=this.state.db,seen={},st=[from];while(st.length){const i=st.pop();if(i===target)return true;if(seen[i])continue;seen[i]=1;const t=db.tasks.find(x=>x.id===i);if(t)(t.deps||[]).forEach(d=>st.push(d))}return false}
+  addDep=(e)=>{const v=e.target.value,cur=this.state.drawer;if(!v)return;if(this.reaches(v,cur)){this.flash('That would create a circular dependency');return}this.mut(d=>{const t=d.tasks.find(x=>x.id===cur);t.deps=(t.deps||[]).concat(v)},'added a dependency')}
+  nudge(kind){const id=this.state.drawer;let tt='';this.mut(d=>{const t=d.tasks.find(x=>x.id===id);tt=t.title;this.notify(d,t.assignee,kind==='f'?'Follow-up from '+this.nm(d.meId)+' on "'+t.title+'"':this.nm(d.meId)+' requests an update on "'+t.title+'"','followup')},(kind==='f'?'followed up on "':'requested an update on "')+this.state.db.tasks.find(x=>x.id===id).title+'"');this.flash(kind==='f'?'Follow-up sent':'Update requested')}
+  addMs=()=>{const f=this.state.f;if(!(f.msName||'').trim())return;this.mut(d=>{d.milestones=d.milestones||[];d.milestones.push({id:this.uid(),projectId:f.id,name:f.msName.trim(),date:f.msDate||'',done:false})},'added milestone '+f.msName);this.setState(s=>({f:Object.assign({},s.f,{msName:'',msDate:''})}))}
+  sendSum=(txt)=>()=>{this.mut(d=>{d.notifs.unshift({id:this.uid(),to:d.meId,text:txt,kind:'summary',at:Date.now(),read:false,delivery:'in-app: delivered'})});this.flash('Summary added to your notifications')}
+  bulkDel=()=>{const ids=Object.keys(this.state.sel).filter(k=>this.state.sel[k]);if(ids.length&&confirm('Delete '+ids.length+' tasks?')){this.mut(db=>{db.tasks=db.tasks.filter(t=>!ids.includes(t.id))},'deleted '+ids.length+' tasks');this.setState({sel:{}})}}
+  exportCsv=()=>{const db=this.state.db,q=v=>'"'+String(v==null?'':v).replace(/"/g,'""')+'"';const rows=[['Title','Project','Assignee','Due','Priority','Status','Progress']].concat(db.tasks.map(t=>{const d=this.deco(t);return [t.title,d.projName,d.assigneeName,t.due,t.priority,d.stLabel,d.pg+'%']}));const b=new Blob([rows.map(r=>r.map(q).join(',')).join('\n')],{type:'text/csv'});const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='voicedesk-tasks.csv';a.click()}
+  rvTasks(){
+    const s=this.state,db=s.db,T=this.today(),me=db.meId,sc=s.nav,isT=['all','mine','deleg'].includes(sc);
+    const TABS={all:[['all','All'],['active','Active'],['progress','In progress'],['overdue','Overdue'],['done','Completed'],['archived','Archived']],mine:[['today','Today'],['upcoming','Upcoming'],['progress','In progress'],['done','Completed'],['all','All']],deleg:[['all','All'],['awaiting','Awaiting acceptance'],['progress','In progress'],['overdue','Overdue'],['done','Completed']]};
+    let list=db.tasks.filter(t=>this.visible(t));if(sc==='mine')list=list.filter(t=>t.assignee===me);if(sc==='deleg')list=list.filter(t=>t.assignedBy===me&&t.assignee!==me);
+    const F={all:t=>!t.archived,active:t=>this.isActive(t),progress:t=>!t.archived&&t.status==='progress',overdue:t=>this.isOver(t),done:t=>!t.archived&&t.status==='done',archived:t=>t.archived,today:t=>this.isActive(t)&&(t.due===T||this.isOver(t)),upcoming:t=>this.isActive(t)&&t.due>T,awaiting:t=>!t.archived&&t.accepted===false};
+    list=list.filter(F[s.tab]||F.all);const q=s.q.toLowerCase();
+    if(q)list=list.filter(t=>(t.title+' '+t.desc+' '+this.nm(t.assignee)).toLowerCase().includes(q));
+    if(s.pf)list=list.filter(t=>t.projectId===s.pf);if(s.mf)list=list.filter(t=>t.assignee===s.mf);
+    list.sort((a,b)=>(a.due||'9')<(b.due||'9')?-1:(a.due||'9')>(b.due||'9')?1:0);
+    const D=list.map(t=>Object.assign(this.deco(t),{chk:!!s.sel[t.id],pick:(e)=>{e.stopPropagation();this.setState(x=>({sel:Object.assign({},x.sel,{[t.id]:!x.sel[t.id]})}))},stop:(e)=>e.stopPropagation(),doneLabel:t.status==='done'?'Reopen':'Done',toggle:(e)=>{e.stopPropagation();this.complete(t.id)},dragS:()=>{this.dragId=t.id}}));
+    const gk={assignee:t=>t.assigneeName,project:t=>t.projName,status:t=>t.stLabel}[s.gb];const gm={};D.forEach(t=>{const k=gk?gk(t):'';(gm[k]=gm[k]||[]).push(t)});
+    const groups=Object.keys(gm).map(k=>({label:k,hd:k?'block':'none',n:gm[k].length,rows:gm[k]}));
+    const board=[['todo','To Do'],['progress','In Progress'],['blocked','Blocked'],['done','Completed']].map(c=>({label:c[1],col:this.stMeta(c[0])[1],cards:D.filter(t=>t.status===c[0]||(c[0]==='todo'&&t.status==='draft')),over:(e)=>e.preventDefault(),drop:()=>{if(this.dragId){const id=this.dragId;this.dragId=null;this.mut(db=>this.setStatus(db,db.tasks.find(x=>x.id===id),c[0]),'moved a task to '+c[1])}}}));board.forEach(c=>c.n=c.cards.length);
+    const b=new Date();b.setDate(1);b.setMonth(b.getMonth()+s.cm);const first=(b.getDay()+6)%7,dim=new Date(b.getFullYear(),b.getMonth()+1,0).getDate(),cells=[];
+    for(let i=0;i<first+dim;i++){const dn=i-first+1;if(dn<1){cells.push({day:'',bg:'transparent',tasks:[]});continue}const iso=this.iso(new Date(b.getFullYear(),b.getMonth(),dn));cells.push({day:dn,bg:iso===T?'#f1ecff':'#fff',tasks:D.filter(t=>t.due===iso).slice(0,3)})}
+    const sel=Object.keys(s.sel).filter(k=>s.sel[k]).length;
+    const dt=s.drawer&&db.tasks.find(x=>x.id===s.drawer),dd=dt?this.deco(dt):null;
+    const mems=db.members.filter(m=>m.active).map(m=>({id:m.id,name:m.disp}));
+    return {isTasks:isT,tabs:(TABS[sc]||TABS.all).map(t=>({label:t[1],bg:s.tab===t[0]?'#17171c':'#fff',fg:s.tab===t[0]?'#fff':'#55555f',go:()=>this.setState({tab:t[0],sel:{}})})),
+      q:s.q,setQ:(e)=>this.setState({q:e.target.value}),pf:s.pf,mf:s.mf,gb:s.gb,setPf:(e)=>this.setState({pf:e.target.value}),setMf:(e)=>this.setState({mf:e.target.value}),setGb:(e)=>this.setState({gb:e.target.value}),
+      projOpts:db.projects.map(p=>({id:p.id,name:p.name})),memOpts:mems,tvs:[['list','List'],['master','Master table'],['board','Board'],['cal','Calendar']].map(v=>({label:v[1],bg:s.tv===v[0]?'#fff':'transparent',go:()=>this.setState({tv:v[0]})})),
+      isList:s.tv==='list',mcards:D,isMaster:s.tv==='master',mrows:D.map(t=>Object.assign({},t,{code:'TSK-'+String(db.tasks.findIndex(x=>x.id===t.id)+1).padStart(3,'0'),ed:(e)=>this.editCell(t.id,e.target.name,e.target.value),mo:mems,po:db.projects.map(p=>({id:p.id,name:p.name})),depN:(t.deps||[]).length,cr:this.fd(this.iso(t.created)),rc:t.rec||'—'})),
+      dDeps:dd?(dd.deps||[]).map(id=>{const x=db.tasks.find(y=>y.id===id);return x?{title:x.title,st:this.stMeta(x.status)[0],fg:this.stMeta(x.status)[1],rm:()=>this.mut(d=>{const t=d.tasks.find(y=>y.id===s.drawer);t.deps=t.deps.filter(i=>i!==id)})}:null}).filter(Boolean):[],depOpts:dd?db.tasks.filter(t=>!t.archived&&t.id!==dd.id&&!(dd.deps||[]).includes(t.id)).map(t=>({id:t.id,name:t.title})):[],addDep:this.addDep,dLock:dd?!this.can('task.edit',dt):true,dAtt:dd?(dd.attachments||[]).map(a=>({name:a.name,kb:Math.max(1,Math.round(a.size/1024))+' KB',href:a.data||'#',hd:a.data?'inline':'none',nd:a.data?'none':'inline',rm:()=>this.mut(d=>{const t=d.tasks.find(y=>y.id===s.drawer);t.attachments=t.attachments.filter(y=>y.name!==a.name)})})):[],addFile:this.addFile,dFollowDisp:dd&&dd.assignee&&dd.assignee!==me?'flex':'none',follow:()=>this.nudge('f'),reqUp:()=>this.nudge('r'),isBoard:s.tv==='board',isCal:s.tv==='cal',groups,board,cells,monthLabel:b.toLocaleDateString('en-GB',{month:'long',year:'numeric'}),prevM:()=>this.setState({cm:s.cm-1}),nextM:()=>this.setState({cm:s.cm+1}),exportCsv:this.exportCsv,
+      empty:D.length?'none':'block',selN:sel,bulkDisp:sel?'flex':'none',bulkSet:this.bulkSet,bulkDel:this.bulkDel,bulkArch:()=>this.bulk((db,t)=>{t.archived=true},'archived'),
+      hasDrawer:!!dd,d:dd,dClose:()=>this.setState({drawer:null}),dset:this.dset,dDone:()=>this.complete(s.drawer),dDoneLabel:dd&&dd.status==='done'?'Reopen task':'Mark complete',dDel:()=>this.delTask(s.drawer),dArch:()=>this.arch(s.drawer),dArchLabel:dd&&dd.archived?'Restore':'Archive',
+      dSubs:dd?dd.subtasks.map(x=>({t:x.t,d:x.d,tg:()=>this.togSub(x.id),del:()=>this.mut(db=>{const t=db.tasks.find(y=>y.id===s.drawer);t.subtasks=t.subtasks.filter(y=>y.id!==x.id)}),tf:x.d?'#9a9aa5':'#17171c',td:x.d?'line-through':'none'})):[],
+      dCms:dd?dd.comments.map(c=>({by:this.nm(c.by),t:c.t,when:this.ago(c.at)})):[],dProgDisp:dd&&!dd.subTotal&&dd.status!=='done'&&dd.status!=='todo'?'block':'none',dSubNote:dd&&dd.subTotal?'Calculated from subtasks':'',
+      f:s.f,fld:this.fld,addSub:this.addSub,addCm:this.addCm,
+      showTask:s.modal==='task',closeModal:()=>this.setState({modal:null}),createTask:this.createTask,fErrDisp:s.f&&s.f.err?'block':'none'};
+  }
+  esc(a){return a.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')}
+  DN=['sunday','monday','tuesday','wednesday','thursday','friday','saturday'];
+  parseWhen(c){
+    const st=this.state.db.settings,T=this.today(),now=new Date(),dow=now.getDay(),N={one:1,two:2,three:3,four:4,five:5,six:6,ek:1,do:2,teen:3};
+    let date='',time='',part='',issues=[],soft=[],m;
+    if(/day after tomorrow|\bparso\b/.test(c))date=this.add(T,2);
+    else if(/\btomorrow\b|\bkal\b/.test(c)){date=this.add(T,1);if(/\bkal\b/.test(c))soft.push('"kal" can mean yesterday or tomorrow. Assumed tomorrow.')}
+    else if(/\btoday\b|\baaj\b/.test(c))date=T;
+    else if(m=c.match(/\b(next )?(sunday|monday|tuesday|wednesday|thursday|friday|saturday)\b/)){const i=this.DN.indexOf(m[2]);let d=(i-dow+7)%7||7;if(m[1]&&i>dow)d+=7;date=this.add(T,d)}
+    else if(/end of (this )?week/.test(c))date=this.add(T,Math.max(0,(5-dow+7)%7));
+    else if(/first working day of next month/.test(c)){const d=new Date(now.getFullYear(),now.getMonth()+1,1);while(d.getDay()===0||d.getDay()===6)d.setDate(d.getDate()+1);date=this.iso(d)}
+    else if(/next week/.test(c))date=this.add(T,(8-dow)%7||7);
+    if(m=c.match(/in (\d+|one|two|three|four|five|six) hours?/)){const n=N[m[1]]||+m[1],d=new Date(Date.now()+n*36e5);date=this.iso(d);time=d.toTimeString().slice(0,5)}
+    else{
+      m=c.match(/\b(\d{1,2})(?::(\d{2}))?\s*(am|pm|baje)\b/)||c.match(/\b(?:at|by|before) (\d{1,2})(?::(\d{2}))?()\b/);
+      if(m){let h=+m[1];const mi=m[2]||'00',k=m[3];if(k==='pm'&&h<12)h+=12;else if(k==='am'&&h===12)h=0;else if(k!=='am'&&k!=='pm'){if(h>=1&&h<=7)h+=12;soft.push('AM/PM not stated for '+m[1]+'. Assumed '+(h>=12?'PM':'AM')+'.')}time=String(h).padStart(2,'0')+':'+mi}
+      else if(/morning|subah/.test(c)){time=st.morning;part='morning'}else if(/afternoon|dopahar/.test(c)){time=st.afternoon;part='afternoon'}else if(/lunch/.test(c)){time=st.lunch;part='lunch'}else if(/evening|shaam|night/.test(c)){time=st.evening;part='evening'}
+    }
+    if(part&&!time)issues.push('time');
+    if(!date&&time&&!part){date=T}
+    if(date&&time&&(date+'T'+time)<(T+'T'+this.nowT()))issues.push('past');
+    return {date,time,part,issues,soft};
+  }
+  resolveWho(c){
+    const db=this.state.db;
+    if(/\b(my task|mujhe|mera|mere liye|for me|to me)\b/.test(c))return {id:db.meId,cands:[]};
+    let best=0,cands=[];
+    db.members.filter(m=>m.active).forEach(m=>{let L=0;[m.name,m.disp].concat(m.aliases).forEach(a=>{a=(a||'').toLowerCase();if(a&&new RegExp('\\b'+this.esc(a)+'\\b').test(c))L=Math.max(L,a.length)});if(L>best){best=L;cands=[m.id]}else if(L===best&&L>0)cands.push(m.id)});
+    const h=c.match(/(?:somebody|someone|anyone|koi)\b.*?\b(?:from|in)\b (?:the )?(\w+) team/);
+    return {id:cands.length===1?cands[0]:'',cands:cands.length>1?cands:[],hint:h?h[1]:''};
+  }
+  findRef(c){
+    const db=this.state.db;let best=0,ids=[];
+    db.tasks.filter(t=>!t.archived).forEach(t=>{const w=t.title.toLowerCase().split(/\W+/).filter(x=>x.length>3);const sc=w.filter(x=>c.includes(x)).length;if(sc>best){best=sc;ids=[t.id]}else if(sc===best&&sc>0)ids.push(t.id)});
+    return ids.length===1?{id:ids[0]}:{id:'',amb:ids};
+  }
+  mkTitle(c,names){
+    let t=' '+c+' ';names.forEach(n=>{t=t.replace(new RegExp('\\b'+this.esc(n.toLowerCase())+'\\b','g'),' ')});
+    t=t.replace(/\b\d{1,2}(:\d{2})?\s*(am|pm|baje)\b/g,' ').replace(/\b(at|by|before|in) \d+(:\d{2})?\b/g,' ').replace(/in (\d+|one|two|three|four|five|six) hours?/g,' ').replace(/day after tomorrow|end of (this )?week|first working day of next month|next week|every \w+/g,' ');
+    const stop=new Set('give gave assign please can could you the a an to for on by at in of is it its and then also make needs need should must work task tasks me him her them ko bolo bol kare karna kar karo do tak ka ki ke hai se ne kal aaj parso tomorrow today next this morning evening afternoon night lunch before urgent urgently asap high low important priority remind reminder subah shaam jaldi zaroori batao that complete completed finish finished my create add new set mark'.split(' ').concat(this.DN));
+    const w=t.replace(/[^\w\s'-]/g,' ').split(/\s+/).filter(x=>x&&!stop.has(x.toLowerCase()));
+    const r=w.join(' ');return r?r[0].toUpperCase()+r.slice(1):'';
+  }
+  interpretLocal(text){
+    const db=this.state.db,T=this.today(),cards=[];
+    const parts=text.replace(/\s+/g,' ').split(/\s*(?:[.;!?]|\band then\b|\bphir\b|\baur\b|\balso\b)\s*|,\s*(?=(?:and\s+)?(?:give|assign|\w+ ko\b|\w+ needs))/i).filter(x=>x&&x.trim().length>2);
+    parts.forEach(raw=>{
+      let c=raw.toLowerCase().trim(),remTxt='';const rm=c.match(/,?\s*(?:and\s+)?(remind\b.*)$/);if(rm&&rm.index>0){remTxt=rm[1];c=c.slice(0,rm.index)}else if(rm&&rm.index===0){remTxt=rm[1];c=''}
+      let rv='';{const mr=c.match(/(?:reviewer(?: is| will be)?|reviewed by|review by|reviewing by)\s+(\w+(?: \w+)?)/)||c.match(/(\w+(?: \w+)?) (?:will|to|should) review/);if(mr){const r0=this.resolveWho(mr[1]);rv=r0.id||(r0.cands[0]||'');c=c.replace(mr[0],' ')}}
+      const w=c?this.parseWhen(c):{date:'',time:'',issues:[],soft:[],part:''},who=c?this.resolveWho(c):{id:'',cands:[]},rem=remTxt?this.parseWhen(remTxt):null;
+      const pr=/\burgent|asap|\bjaldi\b|\bzaroori\b/.test(c)?'Urgent':/\bhigh\b|important/.test(c)?'High':/\blow\b/.test(c)?'Low':/\bmedium\b/.test(c)?'Medium':'';
+      const prev=cards[cards.length-1];
+      const names=[];db.members.forEach(m=>[m.name,m.disp].concat(m.aliases).forEach(a=>a&&names.push(a)));names.sort((a,b)=>b.length-a.length);
+      const ref=this.findRef(c);let intent='create';
+      if(/\b(delete|remove)\b/.test(c)&&ref.id)intent='delete';
+      else if(/\b(reopen|re-open)\b/.test(c))intent='reopen';
+      else if(/\b(show|list|what|pending|overdue|status|dikhao|batao)\b/.test(c)&&!/\b(give|assign|ko bolo)\b/.test(c))intent='query';
+      else if((/\b(mark|set)\b.*\b(done|complete|completed)\b|\b(finished|completed)\b|ho gaya|complete ho/.test(c))&&(ref.id||ref.amb.length))intent='complete';
+      else if(/\b(move|reschedule|postpone|push|change)\b/.test(c)&&w.date&&(ref.id||ref.amb.length))intent='reschedule';
+      else if(/priority/.test(c)&&pr&&(ref.id||ref.amb.length))intent='priority';
+      else if(/\bcomment|note\b/.test(c)&&ref.id)intent='comment';
+      const title=this.mkTitle(c,names);
+      if(!title&&intent==='create'){if(prev&&prev.intent==='create'){if(pr)prev.prio=pr;if(rem){prev.rem=rem}else if(w.date||w.time){prev.rem=w}if(who.id&&!prev.assignee)prev.assignee=who.id;return}if(!rem)return}
+      const rec=(c.match(/every (monday|tuesday|wednesday|thursday|friday|saturday|sunday|day|week)/)||[])[1]||'';
+      const pj=db.projects.find(p=>p.name.toLowerCase().split(/\W+/).some(x=>x.length>3&&c.includes(x)));
+      const card={id:this.uid(),intent:rec&&intent==='create'?'recurring':intent,src:raw.trim(),title,assignee:who.id,reviewer:rv,cands:who.cands,hint:who.hint||'',date:w.date,time:w.time,part:w.part,prio:pr,proj:pj?pj.id:'',ref:ref.id||'',refAmb:ref.amb||[],rem,rec,soft:w.soft,pastIssue:w.issues.includes('past'),needTime:w.issues.includes('time'),confirm:false,results:[]};
+      if(rec&&intent==='create'){const i=this.DN.indexOf(rec);if(i>=0)card.date=this.add(T,(i-new Date().getDay()+7)%7||7)}
+      if(intent==='query'){const mem=who.id,ov=/overdue/.test(c);card.results=db.tasks.filter(t=>!t.archived&&(ov?this.isOver(t):this.isActive(t))&&(!mem||t.assignee===mem)).map(t=>t.title+' · '+this.nm(t.assignee)+' · '+(t.due?this.fd(t.due):'no date'))}
+      if(intent==='comment'){card.title=raw.trim()}
+      cards.push(card);
+    });
+    const sess=this.uid();this.setState({cards,sess,done:false,vs:'review'});
+    this.mut(db=>{db.voice.unshift({id:sess,text,at:Date.now(),n:cards.length})},null);
+    if(!db.settings.review&&cards.length&&cards.every(k=>!this.blockWhy(k)))setTimeout(()=>this.commit(),50);
+  }
+  blockWhy(k){
+    if(k.intent==='query')return '';
+    if(k.cands.length>1&&!k.assignee)return 'Choose which person';
+    if(k.needTime&&!k.time)return 'Pick a time for '+k.part;
+    if(k.pastIssue)return 'Deadline is in the past';
+    if(k.intent==='create'||k.intent==='recurring'){if(!k.title.trim())return 'Add a title'}
+    else if(!k.ref)return 'Which task do you mean?';
+    if(k.intent==='delete'&&!k.confirm)return 'Confirm deletion';
+    return '';
+  }
+  setCard(id,key,v){this.setState(s=>({cards:s.cards.map(k=>{if(k.id!==id)return k;const n=Object.assign({},k,{[key]:key==='confirm'?!k.confirm:v});if(key==='time'&&v)n.needTime=false;if(key==='date'||key==='time')n.pastIssue=n.date&&n.time?(n.date+'T'+n.time)<(this.today()+'T'+this.nowT()):false;return n})}))}
+  commit=()=>{
+    const s=this.state,db0=s.db;if(s.done||db0.keys[s.sess])return;const live=s.cards.filter(k=>k.intent!=='query');if(live.some(k=>this.blockWhy(k)))return;
+    if(live.some(k=>k.intent==='create'||k.intent==='recurring')&&!this.can('task.create'))return this.deny();const made=[],prev={};let removed=0;
+    this.mut(db=>{db.keys[s.sess]=Date.now();live.forEach(k=>{
+      const okMem=id=>db.members.some(m=>m.id===id&&m.active);let as=okMem(k.assignee)?k.assignee:'';if(!this.can('task.assign'))as=db.meId;
+      if(k.intent==='create'||k.intent==='recurring'){const t={id:this.uid(),title:k.title.trim(),desc:'Created by voice: "'+k.src+'"',projectId:db.projects.some(p=>p.id===k.proj)?k.proj:'',assignee:as,assignedBy:db.meId,createdBy:db.meId,reviewer:okMem(k.reviewer)?k.reviewer:'',priority:k.prio||'Medium',status:as?'todo':'draft',progress:0,due:k.date||'',time:k.time||'',effort:'',subtasks:[],comments:[],archived:false,accepted:!db.settings.accept||as===db.meId,created:Date.now(),completedAt:null,rec:k.intent==='recurring'?'weekly':''};db.tasks.push(t);made.push(t.id);this.notify(db,as,'You were assigned "'+t.title+'"');if(t.reviewer)this.notify(db,t.reviewer,'You were set as reviewer for "'+t.title+'"','assignment')}
+      else{const t=db.tasks.find(x=>x.id===k.ref);if(!t||!this.can('task.edit',t))return;prev[t.id]=JSON.parse(JSON.stringify(t));
+        if(k.intent==='complete')this.setStatus(db,t,'done');else if(k.intent==='reopen')this.setStatus(db,t,'todo');
+        else if(k.intent==='reschedule'){t.due=k.date;if(k.time)t.time=k.time;this.notify(db,t.assignee,'Deadline changed for "'+t.title+'"','deadline')}
+        else if(k.intent==='priority')t.priority=k.prio;
+        else if(k.intent==='comment')t.comments.push({id:this.uid(),by:db.meId,t:k.title,at:Date.now()});
+        else if(k.intent==='delete'){db.tasks=db.tasks.filter(x=>x.id!==t.id);removed++}}
+    });db.activity.unshift({id:this.uid(),by:db.meId,text:'committed voice batch ('+live.length+' actions)',at:Date.now()})});
+    this.setState({done:true,lastBatch:{made,prev}});
+    this.flash(live.length+' action'+(live.length===1?'':'s')+' saved',()=>this.undoBatch(made,prev));
+  }
+  undoBatch(made,prev){this.mut(db=>{db.tasks=db.tasks.filter(t=>!made.includes(t.id));Object.keys(prev).forEach(id=>{const i=db.tasks.findIndex(t=>t.id===id);if(i>=0)db.tasks[i]=prev[id];else db.tasks.push(prev[id])});delete db.keys[this.state.sess]},'undid voice batch');this.setState({done:false})}
+  SR(){return window.SpeechRecognition||window.webkitSpeechRecognition}
+  startRec=()=>{
+    const SR=this.SR();if(!SR){this.setState({vmsg:'Live speech recognition is not supported in this browser. Use Chrome or Edge, or type the instruction below.'});return}
+    if(this.state.vs==='listening')return;this.cancelled=false;
+    const r=new SR();r.lang=this.state.lang;r.continuous=true;r.interimResults=true;this.rec=r;this.base='';
+    r.onstart=()=>this.setState({perm:'granted'});
+    r.onresult=e=>{let t='';for(let i=0;i<e.results.length;i++)t+=e.results[i][0].transcript;this.setState({vt:t})};
+    r.onerror=e=>{clearInterval(this.t1);clearInterval(this.t2);this.cancelled=true;this.setState({vs:'idle',perm:e.error==='not-allowed'||e.error==='service-not-allowed'?'denied':this.state.perm,vmsg:e.error==='not-allowed'||e.error==='service-not-allowed'?(window.self!==window.top?'This page is running inside an embedded frame (Claude). The browser blocks the microphone there and shows no permission prompt. Open the file in its own tab at http://localhost:8000 or an https:// address, or type the sentence in the transcript box and press Extract tasks.':'Microphone access is blocked. Click the lock icon left of the address bar, set Microphone to Allow, then reload.'):e.error==='no-speech'?'No speech detected. Tap the mic and try again.':'Recognition failed ('+e.error+'). Retry or type your instruction.'})};
+    r.onend=()=>{clearInterval(this.t1);clearInterval(this.t2);const t=this.state.vt.trim();if(this.state.vs==='listening'){this.setState({vs:'idle',bars:[]});if(!this.cancelled&&t)this.interpret(t)}};
+    this.setState({vs:'listening',vt:'',vd:0,vmsg:'',cards:[],bars:Array(36).fill(4)});
+    this.t1=setInterval(()=>this.setState(s=>({vd:s.vd+1})),1000);this.t2=setInterval(()=>this.setState(s=>({bars:s.bars.map((b,i)=>Math.max(4,Math.min(34,b+(Math.random()-.5)*18)))})),110);
+    try{r.start()}catch(e){}
+  }
+  stopRec=()=>{if(this.rec)this.rec.stop()}
+  cancelRec=()=>{this.cancelled=true;if(this.rec)this.rec.abort();clearInterval(this.t1);clearInterval(this.t2);this.setState({vs:'idle',vt:'',bars:[],vd:0})}
+  componentWillUnmount(){clearInterval(this.t1);clearInterval(this.t2)}
+  rvVoice(){
+    const s=this.state,db=s.db,mm=Math.floor(s.vd/60),ss=String(s.vd%60).padStart(2,'0'),L=s.vs==='listening';
+    const memAll=db.members.filter(m=>m.active);
+    const cards=s.cards.map(k=>{const why=this.blockWhy(k),isQ=k.intent==='query',isNew=k.intent==='create'||k.intent==='recurring',ref=k.ref&&db.tasks.find(t=>t.id===k.ref);
+      const lab={create:'Create task',recurring:'Recurring task',complete:'Mark completed',reopen:'Reopen',reschedule:'Change due date',priority:'Change priority',comment:'Add comment',delete:'Delete task',query:'Task status'}[k.intent];
+      return Object.assign({},k,{lab,why,whyDisp:why?'block':'none',isNew,isQ,notQ:!isQ,showTitle:isNew||k.intent==='comment',tdisp:isNew?'inline':'none',full:()=>this.setCard(k.id,'title',k.src),showWho:isNew,showWhen:isNew||k.intent==='reschedule',showPrio:isNew||k.intent==='priority',askName:k.cands.length?this.mem(k.cands[0]).name.split(' ')[0]:'',showRef:!isNew&&!isQ,showDel:k.intent==='delete',showRes:isQ,
+        mo:memAll.map(m=>({id:m.id,name:m.name})),po:db.projects.map(p=>({id:p.id,name:p.name})),set:(e)=>this.setCard(k.id,e.target.name,e.target.value),tog:()=>this.setCard(k.id,'confirm'),drop:()=>this.setState(x=>({cards:x.cards.filter(c=>c.id!==k.id)})),
+        pick:k.cands.length>1&&!k.assignee?k.cands.map(id=>{const m=this.mem(id);return {label:m.name+' · '+m.dept,go:()=>this.setCard(k.id,'assignee',id)}}):[],pickDisp:k.cands.length>1&&!k.assignee?'flex':'none',
+        refOpts:db.tasks.filter(t=>!t.archived).map(t=>({id:t.id,name:t.title})),softTxt:(k.soft||[]).concat(k.hint?['Suggested: pick someone from the '+k.hint+' team below. No one was assigned automatically.']:[]).concat(k.rem?['Reminder: '+(k.rem.date?this.fd(k.rem.date):'')+' '+(k.rem.time||'')]:[]).concat(k.rec?['Repeats every '+k.rec+'. Next occurrence is created when this one is completed.']:[]).join(' '),softDisp:(k.soft&&k.soft.length)||k.hint||k.rem||k.rec?'block':'none',
+        unspec:isNew&&!k.assignee&&k.cands.length<2?'block':'none',resDisp:isQ?'block':'none',noRes:isQ&&!k.results.length?'block':'none',refName:ref?ref.title:''})});
+    const open=cards.filter(k=>k.intent!=='query'),blocked=open.filter(k=>k.why).length;
+    return {vs:s.vs,isListening:L,isIdle:!L,micBg:L?'#ef4444':'linear-gradient(135deg,#b49cff,#7c5cf0)',micAnim:L?'vdp 1.4s infinite':'none',micClick:L?this.stopRec:this.startRec,micLabel:L?'Tap to stop':'Tap to speak',vtime:mm+':'+ss,bars:s.bars.map(b=>({h:b+'px'})),vt:s.vt,setVt:(e)=>this.setState({vt:e.target.value}),lang:s.lang,setLang:(e)=>this.setState({lang:e.target.value}),cancelRec:this.cancelRec,
+      vmsg:s.vmsg,vmsgDisp:s.vmsg?'block':'none',permTxt:s.perm==='denied'?'Microphone: blocked':s.perm==='granted'?'Microphone: allowed':'Microphone: asks on first use',interpretClick:()=>{const t=s.vt.trim();if(t)this.interpret(t)},
+      samples:['Rahul ko bolo inventory UI kal 4 baje tak complete kare.','Rahul Sharma to prepare the inventory UI by Friday 5 pm, Priya will review.','Priya needs to check the customer page on Friday. Make it urgent.','Give Amit the quotations work, and remind him tomorrow morning.','Whatever tasks are pending with Amit, show me.','Mark fix login redirect bug as done.','Move the site review to next Wednesday.','Every Monday at 10, remind the team to update their work.','Sneha to send the report this evening.'].map(t=>({t,go:()=>this.setState({vt:t,cards:[],vs:'idle'})})),
+      vcards:cards,hasCards:cards.length>0,noCards:!cards.length,commit:this.commit,commitDisp:open.length?'block':'none',commitOff:blocked>0||s.done,commitOp:blocked>0||s.done?.5:1,commitLabel:s.done?'Saved':blocked?'Resolve '+blocked+' item'+(blocked>1?'s':''):'Save '+open.length+' action'+(open.length>1?'s':''),clearCards:()=>this.setState({cards:[],vt:'',vs:'idle',done:false}),
+      vhist:db.voice.slice(0,6).map(v=>({text:v.text,when:this.ago(v.at),n:v.n,reuse:()=>this.setState({vt:v.text,cards:[],vs:'idle'})})),vhistDisp:db.voice.length?'block':'none',isVoice:s.nav==='voice',stopP:this.stopP};
+  }
+  stats(mid,from){
+    const T=this.state.db.tasks.filter(t=>t.assignee===mid&&!t.archived&&t.status!=='cancelled'&&t.status!=='draft'&&(!from||(t.completedAt&&this.iso(t.completedAt)>=from)||(t.due&&t.due>=from)));
+    const d=T.filter(t=>t.status==='done').length,a=T.filter(t=>this.isActive(t)).length;
+    return {done:d,active:a,over:T.filter(t=>this.isOver(t)).length,pct:T.length?Math.round(d/T.length*100):0,total:T.length};
+  }
+  openMember=(m)=>()=>this.setState({modal:'member',f:m?Object.assign({},m,{aliasTxt:m.aliases.join(', '),reassign:''}):{name:'',disp:'',email:'',phone:'',dept:'',desig:'',role:'Member',mgr:'',tz:'Asia/Kolkata',active:true,aliasTxt:'',av:['#7c5cf0','#0ea5e9','#f59e0b','#10b981','#ec4899','#64748b'][this.state.db.members.length%6]}})
+  saveMember=()=>{const f=this.state.f,db=this.state.db;if(!this.can('members.manage'))return this.deny();
+    if(!(f.name||'').trim())return this.setState(s=>({f:Object.assign({},s.f,{err:'Full name is required'})}));
+    if(!/^\S+@\S+\.\S+$/.test(f.email||''))return this.setState(s=>({f:Object.assign({},s.f,{err:'Enter a valid work email'})}));
+    if(db.members.some(m=>m.id!==f.id&&m.email.toLowerCase()===f.email.toLowerCase()))return this.setState(s=>({f:Object.assign({},s.f,{err:'That email already exists in this workspace'})}));
+    const disp=(f.disp||f.name.split(' ')[0]).trim(),al=Array.from(new Set((f.aliasTxt||'').split(',').map(x=>x.trim().toLowerCase()).concat([disp.toLowerCase(),f.name.trim().toLowerCase()]).filter(Boolean)));
+    this.mut(d=>{const rec={id:f.id||'m'+this.uid(),name:f.name.trim(),disp,email:f.email.trim(),phone:f.phone||'',dept:f.dept||'',desig:f.desig||'',role:f.role||'Member',mgr:f.mgr||'',team:f.dept||'',tz:f.tz||'Asia/Kolkata',active:f.active!==false,aliases:al,av:f.av};const i=d.members.findIndex(m=>m.id===rec.id);if(i>=0)d.members[i]=rec;else d.members.push(rec)},(f.id?'updated member ':'invited member ')+f.name);
+    this.setState({modal:null,f:{}});this.flash(f.id?'Member saved':'Member added. Invite is recorded; email delivery needs the backend.')}
+  deactivate=()=>{const f=this.state.f;if(!this.can('members.manage'))return this.deny();if(!confirm('Deactivate '+f.name+'? Their access is revoked and history is kept.'))return;
+    this.mut(d=>{const m=d.members.find(x=>x.id===f.id);m.active=false;d.tasks.forEach(t=>{if(t.assignee===m.id&&this.isActive(t)){t.assignee=f.reassign||'';if(!f.reassign)t.status='draft';else this.notify(d,f.reassign,'"'+t.title+'" was reassigned to you')}})},'deactivated '+f.name);this.setState({modal:null,f:{}})}
+  activate=()=>{const f=this.state.f;this.mut(d=>{d.members.find(x=>x.id===f.id).active=true},'reactivated '+f.name);this.setState({modal:null,f:{}})}
+  openProj=(p)=>()=>this.setState({modal:'proj',f:p?Object.assign({},p):{name:'',desc:'',owner:this.state.db.meId,start:this.today(),target:'',status:'Active',col:'#7c5cf0'}})
+  saveProj=()=>{const f=this.state.f;if(!this.can('task.assign'))return this.deny();if(!(f.name||'').trim())return this.setState(s=>({f:Object.assign({},s.f,{err:'Project name is required'})}));
+    this.mut(d=>{const r={id:f.id||'p'+this.uid(),name:f.name.trim(),desc:f.desc||'',owner:f.owner,start:f.start||'',target:f.target||'',status:f.status||'Active',col:f.col||'#7c5cf0'};const i=d.projects.findIndex(p=>p.id===r.id);if(i>=0)d.projects[i]=r;else d.projects.push(r)},(f.id?'updated project ':'created project ')+f.name);this.setState({modal:null,f:{}})}
+  delProj=()=>{const f=this.state.f;if(!confirm('Delete project "'+f.name+'"? Its tasks are kept without a project.'))return;this.mut(d=>{d.projects=d.projects.filter(p=>p.id!==f.id);d.tasks.forEach(t=>{if(t.projectId===f.id)t.projectId=''})},'deleted project '+f.name);this.setState({modal:null,f:{}})}
+  sett=(e)=>{if(!this.can('workspace.manage'))return this.deny();const n=e.target.name,v=e.target.type==='checkbox'?e.target.checked:e.target.value;this.mut(d=>{d.settings[n]=v})}
+  rvMisc(){
+    const s=this.state,db=s.db,T=this.today(),me=db.meId;
+    const team=db.members.map(m=>{const st=this.stats(m.id);return Object.assign({},m,{ini:this.ini(m.name),open:this.openMember(m),sd:m.active?'#16a34a':'#9a9aa5',sl:m.active?m.role:'Inactive',op:m.active?1:.55,st,pctW:st.pct+'%',dupes:m.aliases.filter(a=>db.members.some(o=>o.id!==m.id&&o.aliases.includes(a))).join(', '),tasks:()=>this.setState({nav:'all',mf:m.id,tab:'active'})})});
+    team.forEach(m=>m.dupDisp=m.dupes?'block':'none');
+    const from=s.rp==='week'?this.add(T,-7):s.rp==='month'?this.add(T,-30):'';
+    const rows=db.members.filter(m=>m.active).map(m=>{const st=this.stats(m.id,from);return {name:m.name,hrs:db.tasks.filter(t=>t.assignee===m.id&&this.isActive(t)).reduce((a,t)=>a+(parseFloat(t.effort)||0),0),av:m.av,ini:this.ini(m.name),st,pctW:st.pct+'%',actW:Math.min(100,st.active*20)+'%'}});
+    const pj=db.projects.map(p=>{const t=db.tasks.filter(x=>x.projectId===p.id&&!x.archived&&x.status!=='cancelled'&&x.status!=='draft'),d=t.filter(x=>x.status==='done').length;const te=t.reduce((a,x)=>a+(parseFloat(x.effort)||0),0),de=t.filter(x=>x.status==='done').reduce((a,x)=>a+(parseFloat(x.effort)||0),0);return {wpct:te?Math.round(de/te*100)+'%':'n/a',name:p.name,col:p.col,n:t.length,d,pct:(t.length?Math.round(d/t.length*100):0)+'%',over:t.filter(x=>this.isOver(x)).length}});
+    const ovl=db.tasks.filter(t=>this.isOver(t)).map(t=>this.deco(t));
+    const projFull=db.projects.map(p=>{const nm=(db.milestones||[]).filter(m=>m.projectId===p.id&&!m.done).sort((a,b)=>a.date<b.date?-1:1)[0];const t=db.tasks.filter(x=>x.projectId===p.id&&!x.archived&&x.status!=='cancelled'&&x.status!=='draft'),d=t.filter(x=>x.status==='done').length,pct=t.length?Math.round(d/t.length*100):0,ms=this.mem(p.owner);return {name:p.name,desc:p.desc,col:p.col,owner:ms?ms.disp:'-',target:this.fd(p.target),status:p.status,pct:pct+'%',pctW:pct+'%',nextMs:nm?'Next milestone: '+nm.name+(nm.date?' · '+this.fd(nm.date):''):'No open milestones',count:t.length,d,open:this.openProj(p),view:()=>this.setState({nav:'all',pf:p.id,tab:'all'})}});
+    const myN=db.notifs.filter(n=>n.to===me).slice(0,30).map(n=>({text:n.text,kind:n.kind,when:this.ago(n.at),del:n.delivery,bg:n.read?'transparent':'#f7f4ff',mark:()=>this.mut(d=>{d.notifs.find(x=>x.id===n.id).read=true})}));
+    const rem=db.tasks.filter(t=>this.isActive(t)&&t.due&&t.due<=this.add(T,2)).sort((a,b)=>a.due<b.due?-1:1).map(t=>{const d=this.deco(t);return Object.assign(d,{send:()=>{this.mut(x=>this.notify(x,t.assignee===me?'':t.assignee,'Reminder: "'+t.title+'" is due '+d.dueLabel,'reminder'),'sent reminder for "'+t.title+'"');this.flash(t.assignee===me?'This task is assigned to you':'Reminder queued for '+d.assigneeName)}})});
+    const log=db.activity.slice(0,40).map(a=>({by:this.nm(a.by),text:a.text,when:this.ago(a.at)}));
+    const S=db.settings,tdy=db.tasks.filter(t=>!t.archived),sm={dueToday:tdy.filter(t=>this.isActive(t)&&t.due===T).length,over:tdy.filter(t=>this.isOver(t)).length,doneToday:tdy.filter(t=>t.completedAt&&this.iso(t.completedAt)===T).length,done7:tdy.filter(t=>t.completedAt&&this.iso(t.completedAt)>=this.add(T,-7)).length,new7:tdy.filter(t=>this.iso(t.created)>=this.add(T,-7)).length,open:tdy.filter(t=>this.isActive(t)).length};
+    const dayTxt='Daily summary: '+sm.dueToday+' due today, '+sm.over+' overdue, '+sm.doneToday+' completed today.',wkTxt='Weekly summary: '+sm.done7+' completed, '+sm.new7+' created, '+sm.open+' open, '+sm.over+' overdue.';
+    return {isTeam:s.nav==='team',team,addMember:this.openMember(null),isProj:s.nav==='proj',projFull,addProj:this.openProj(null),isAct:s.nav==='act',dayTxt,wkTxt,sendDay:this.sendSum(dayTxt),sendWk:this.sendSum(wkTxt),msList:(db.milestones||[]).filter(m=>m.projectId===(s.f&&s.f.id)).map(m=>({name:m.name,date:m.date?this.fd(m.date):'',done:m.done,tg:()=>this.mut(d=>{const x=d.milestones.find(y=>y.id===m.id);x.done=!x.done}),del:()=>this.mut(d=>{d.milestones=d.milestones.filter(y=>y.id!==m.id)})})),addMs:this.addMs,msDisp:s.f&&s.f.id?'block':'none',myN,noN:myN.length?'none':'block',markAll:()=>this.mut(d=>{d.notifs.forEach(n=>{if(n.to===me)n.read=true})}),rem,noRem:rem.length?'none':'block',log,
+      isRep:s.nav==='rep',rp:s.rp,setRp:(e)=>this.setState({rp:e.target.value}),repRows:rows,repProj:pj,repOver:ovl,noOver:ovl.length?'none':'block',
+      isSet:s.nav==='set',S,sett:this.sett,tzs:['Asia/Kolkata','Asia/Dubai','Asia/Singapore','Europe/London','America/New_York','America/Los_Angeles','Australia/Sydney'],
+      resetData:()=>{if(confirm('Reset all data to the demo workspace?')){localStorage.removeItem(this.K);this.setState({db:this.seed(),cards:[],drawer:null});this.flash('Demo data restored')}},
+      exportJson:()=>{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(db,null,2)],{type:'application/json'}));a.download='voicedesk-backup.json';a.click()},
+      showMember:s.modal==='member',showProj:s.modal==='proj',isEditM:!!(s.f&&s.f.id),fActiveDisp:s.f&&s.f.id&&s.f.active!==false&&s.f.id!==me?'inline-block':'none',fInactiveDisp:s.f&&s.f.id&&s.f.active===false?'inline-block':'none',saveMember:this.saveMember,deactivate:this.deactivate,activate:this.activate,saveProj:this.saveProj,delProj:this.delProj,fProjId:s.f&&s.f.id?'inline-block':'none',
+      reOpts:db.members.filter(m=>m.active&&m.id!==(s.f&&s.f.id)).map(m=>({id:m.id,name:m.name})),roles:['Owner','Admin','Manager','Member','Viewer'],mgrOpts:db.members.map(m=>({id:m.id,name:m.name})),
+      projCols:['#84cc16','#7c5cf0','#38bdf8','#f59e0b','#ec4899','#10b981']};
+  }
+  /*MORE*/
+}
+</script>
+</body>
+</html>
